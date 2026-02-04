@@ -134,6 +134,12 @@ def Payment(request):
             return render(request,"User/Payment.html",{'msg':' Payment Successfull'})
         else:
             return render(request,"User/Payment.html",{'paymentdata':paymentdata})
+
+def ViewWasteStatus(request):
+    uid = request.session["uid"]
+    waste = tbl_waste.objects.filter(user_id=uid)
+    return render(request,"User/ViewWasteStatus.html",{'waste':waste})
+
 def Logout(request):
     del request.session['uid']
     return redirect("Guest:Login")
