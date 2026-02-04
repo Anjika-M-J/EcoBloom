@@ -1,0 +1,114 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+
+<style>
+    body {
+        background-color: #f3f7fb;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    h3 {
+        text-align: center;
+        color: #1f3c88;
+        margin: 25px 0;
+        letter-spacing: 1px;
+    }
+
+    .card {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background: linear-gradient(135deg, #11998e, #38ef7d);
+        color: white;
+        padding: 12px;
+        text-align: center;
+    }
+
+    td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    tr:hover {
+        background-color: #f1f9ff;
+    }
+
+    img {
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    .assign-btn {
+        background-color: #1f3c88;
+        color: white;
+        padding: 7px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .assign-btn:hover {
+        background-color: #163172;
+    }
+</style>
+
+<div class="card">
+    <h3>WORKER LIST – ASSIGN WARD</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>SL.No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Photo</th>
+                <th>Proof</th>
+                <th>Action</th>
+            </tr>
+
+            {% for i in workerdata %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.worker_name }}</td>
+                <td>{{ i.worker_email }}</td>
+                <td>{{ i.worker_contact }}</td>
+                <td>{{ i.worker_address }}</td>
+                <td>
+                    <img src="{{ i.worker_photo.url }}" width="80">
+                </td>
+                <td>
+                    <img src="{{ i.worker_proof.url }}" width="80">
+                </td>
+                <td>
+                    <a href="{% url 'Admin:AssignWard' i.id %}" class="assign-btn">
+                        Assign Ward
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</div>
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location = "{% url 'Admin:ViewWorker' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

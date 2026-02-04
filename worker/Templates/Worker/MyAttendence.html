@@ -1,0 +1,116 @@
+{% extends 'worker/Head.html' %}
+{% block content %}
+
+<style>
+    body {
+        background: #f0f4f8;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .attendance-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 80vh;
+        animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(25px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .attendance-card {
+        width: 90%;
+        max-width: 800px;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        padding: 25px 30px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .attendance-title {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        color: #ff4b2b;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table th, table td {
+        padding: 12px 8px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    table th {
+        background-color: #ff416c;
+        color: #fff;
+        border-radius: 4px;
+    }
+
+    table tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+
+    table tr:hover {
+        background: #ffe6e1;
+        transition: 0.3s;
+    }
+
+    a {
+        text-decoration: none;
+        color: #ff4b2b;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    a:hover {
+        color: #ff416c;
+        text-decoration: underline;
+    }
+</style>
+
+<div class="attendance-container">
+    <div class="attendance-card">
+        <div class="attendance-title">Attendance</div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>SL.No</th>
+                    <th>Date Time</th>
+                    <th>Status</th>
+                    <th colspan="2">Action</th>
+                </tr>
+                {% for i in workerdata %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.workerattendence_datetime}}</td>
+                    <td>{% if i.workerattendence_status == 1 %}Marked{% endif %}</td>
+                    <td><a href="{% url 'worker:delattendence' i.id %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </div>
+</div>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location="{% url 'worker:MyAttendence' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

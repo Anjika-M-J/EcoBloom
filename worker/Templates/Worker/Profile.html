@@ -1,0 +1,142 @@
+{% extends 'worker/Head.html' %}
+{% block content %}
+
+<style>
+    /* Container for the profile card */
+    .worker-profile-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        background: #f3f4f6; /* soft gray background */
+        animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card styling */
+    .worker-profile-card {
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        width: 420px;
+        padding: 25px 30px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Decorative gradient circle behind card */
+    .worker-profile-card::before {
+        content: '';
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 150px;
+        height: 150px;
+        background: linear-gradient(135deg, #6a11cb, #2575fc); /* purple to blue gradient */
+        border-radius: 50%;
+        opacity: 0.2;
+    }
+
+    /* Profile photo styling */
+    .worker-photo {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        border: 4px solid #6a11cb; /* matching gradient color */
+        object-fit: cover;
+        margin: 0 auto 15px auto;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .worker-photo:hover {
+        transform: scale(1.05);
+    }
+
+    /* Name heading */
+    .worker-name {
+        text-align: center;
+        font-size: 22px;
+        color: #2575fc; /* blue */
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    /* Profile info table */
+    .worker-profile-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .worker-profile-table td {
+        padding: 10px 8px;
+        font-size: 14px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .worker-profile-table td:first-child {
+        font-weight: bold;
+        color: #555;
+        width: 40%;
+    }
+
+    /* Buttons */
+    .worker-btns {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .worker-btns a {
+        background: linear-gradient(90deg, #6a11cb, #2575fc); /* purple-blue gradient */
+        color: white;
+        padding: 8px 18px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.3s ease;
+        margin: 0 5px;
+        display: inline-block;
+    }
+
+    .worker-btns a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+</style>
+
+<div class="worker-profile-container">
+    <div class="worker-profile-card">
+
+        <img src="{{Data.worker_photo.url}}" alt="Worker Photo" class="worker-photo">
+
+        <div class="worker-name">{{Data.worker_name}}</div>
+
+        <table class="worker-profile-table">
+            <tr>
+                <td>Email</td>
+                <td>{{Data.worker_email}}</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>{{Data.worker_contact}}</td>
+            </tr>
+            <tr>
+                <td>Ward</td>
+                <td>{{assignwardata.ward_id.ward_number}}</td>
+            </tr>
+        </table>
+
+        <div class="worker-btns">
+            <a href="{% url 'worker:EditProfile' %}">Edit Profile</a>
+            <a href="{% url 'worker:ChangePassword' %}">Change Password</a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

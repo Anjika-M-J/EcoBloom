@@ -1,0 +1,194 @@
+{% extends 'User/Head.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+
+    <style>
+        body {
+            background: #eef2f3;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+        }
+
+        .edit-container {
+            min-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.7s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .edit-card {
+            width: 420px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            padding: 25px 28px;
+        }
+
+        .edit-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px 6px;
+            font-size: 14px;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            color: #555;
+            width: 38%;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 9px 11px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #2e7d32;
+            box-shadow: 0 0 6px rgba(46,125,50,0.35);
+        }
+
+        .btn-area {
+            text-align: center;
+            padding-top: 15px;
+        }
+
+        input[type="submit"] {
+            background: linear-gradient(90deg, #2e7d32, #66bb6a);
+            color: white;
+            border: none;
+            padding: 10px 32px;
+            font-size: 15px;
+            border-radius: 22px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="edit-container">
+    <div class="edit-card">
+
+        <div class="edit-title">Edit Profile</div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>
+                        <input required type="text" name="txt_name"
+                               value="{{Data.user_name}}"
+                               pattern="^[A-Z]+[a-zA-Z ]*$"
+                               title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        <input required type="email" name="txt_email"
+                               value="{{Data.user_email}}">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Contact</td>
+                    <td>
+                        <input required type="number" name="txt_contact"
+                               value="{{Data.user_contactno}}"
+                               pattern="[7-9]{1}[0-9]{9}"
+                               title="Phone number with 7-9 and remaing 9 digit with 0-9">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Address</td>
+                    <td>
+                        <textarea required name="txt_address" rows="3">{{Data.user_address}}</textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>House Number</td>
+                    <td>
+                        <input required type="number" name="txt_hno"
+                               value="{{Data.user_houseno}}">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Photo</td>
+                    <td>
+                        <input type="file" name="txt_photo">
+                        {% if profiledata %}
+                        <img src="{{profiledata.user_photo.url}}" alt="Profile Photo" class="profile-preview">
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="btn-area">
+                        <input type="submit" value="Update">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location="{% url 'User:Profile' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

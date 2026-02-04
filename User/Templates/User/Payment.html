@@ -1,0 +1,145 @@
+{% extends 'User/Head.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment</title>
+
+<style>
+    body {
+        background: #eef2f3;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .payment-container {
+        width: 90%;
+        max-width: 700px;
+        margin: 40px auto;
+        animation: fadeIn 0.7s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(25px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        padding: 25px 30px;
+        margin-bottom: 30px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        color: #2e7d32;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td, th {
+        padding: 12px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    th {
+        background: #e8f5e9;
+        color: #2e7d32;
+        font-weight: bold;
+    }
+
+    tr:hover {
+        background: #f5f5f5;
+    }
+
+    input[type="submit"] {
+        background: linear-gradient(90deg, #2e7d32, #66bb6a);
+        color: white;
+        border: none;
+        padding: 10px 35px;
+        font-size: 15px;
+        border-radius: 22px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    }
+
+    .status {
+        font-weight: bold;
+        color: #388e3c;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="payment-container">
+
+    <!-- Payment Button Card -->
+    <div class="card">
+        <div class="title">Make Payment</div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div style="text-align:center;">
+                <input type="submit" name="txt_pay" value="PAY NOW">
+            </div>
+        </form>
+    </div>
+
+    <!-- Payment History Card -->
+    <div class="card">
+        <div class="title">Payment History</div>
+        <table>
+            <tr>
+                <th>Sl.No</th>
+                <th>Payment Date</th>
+                <th>Payment Amount</th>
+                <th>Status</th>
+            </tr>
+
+            {% for i in paymentdata %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.payment_date}}</td>
+                <td>{{i.payment_amount}}</td>
+                <td>
+                    {% if i.payment_status == 1 %}
+                        <span class="status">Paid</span>
+                    {% else %}
+                        Pending
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location="{% url 'User:Payment' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

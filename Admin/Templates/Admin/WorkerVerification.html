@@ -1,0 +1,178 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+
+<style>
+    body {
+        background-color: #f4f6f9;
+        font-family: Arial, sans-serif;
+    }
+
+    h3 {
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+
+    .card {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        margin-bottom: 40px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    th {
+        background: linear-gradient(135deg, #4e54c8, #8f94fb);
+        color: white;
+        padding: 12px;
+        text-align: center;
+    }
+
+    td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+        background-color: #f1f3ff;
+    }
+
+    img {
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    .btn-accept {
+        background-color: #2ecc71;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .btn-reject {
+        background-color: #e74c3c;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .status {
+        font-weight: bold;
+        color: #555;
+    }
+</style>
+
+<div class="card">
+    <h3>WORKER VERIFICATION LIST</h3>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>SL.No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Photo</th>
+                <th>Proof</th>
+                <th colspan="2">Action</th>
+            </tr>
+
+            {% for i in workerdata %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.worker_name }}</td>
+                <td>{{ i.worker_email }}</td>
+                <td>{{ i.worker_contact }}</td>
+                <td>{{ i.worker_address }}</td>
+                <td><img src="{{ i.worker_photo.url }}" width="80"></td>
+                <td><img src="{{ i.worker_proof.url }}" width="80"></td>
+
+                {% if i.worker_status == 0 %}
+                    <td><a href="{% url 'Admin:acceptworker' i.id %}" class="btn-accept">Accept</a></td>
+                    <td><a href="{% url 'Admin:rejectworker' i.id %}" class="btn-reject">Reject</a></td>
+                {% elif i.worker_status == 1 %}
+                    <td colspan="2" class="status">Verified</td>
+                {% else %}
+                    <td colspan="2" class="status">Rejected</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</div>
+
+<div class="card">
+    <h3>ACCEPTED WORKERS</h3>
+    <table>
+        <tr>
+            <th>SL.No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Photo</th>
+            <th>Proof</th>
+        </tr>
+
+        {% for i in acceptdata %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.worker_name }}</td>
+            <td>{{ i.worker_email }}</td>
+            <td>{{ i.worker_contact }}</td>
+            <td>{{ i.worker_address }}</td>
+            <td><img src="{{ i.worker_photo.url }}" width="80"></td>
+            <td><img src="{{ i.worker_proof.url }}" width="80"></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="card">
+    <h3>REJECTED WORKERS</h3>
+    <table>
+        <tr>
+            <th>SL.No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Photo</th>
+            <th>Proof</th>
+        </tr>
+
+        {% for i in rejectdata %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.worker_name }}</td>
+            <td>{{ i.worker_email }}</td>
+            <td>{{ i.worker_contact }}</td>
+            <td>{{ i.worker_address }}</td>
+            <td><img src="{{ i.worker_photo.url }}" width="80"></td>
+            <td><img src="{{ i.worker_proof.url }}" width="80"></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location="{% url 'Admin:WorkerVerification' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

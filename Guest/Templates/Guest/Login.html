@@ -1,0 +1,125 @@
+{% extends 'Guest/Head.html' %}
+{% block content %}
+
+<style>
+/* Background */
+.login-page {
+    min-height: 100vh;
+    background: url("https://i.pinimg.com/1200x/7a/76/1d/7a761d0c69df3858fceff11ef8708f48.jpg") no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Login Card */
+.login-card {
+    background: rgba(67, 133, 87, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 35px;
+    width: 360px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: slideUp 1s ease;
+}
+
+/* Animation */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Heading */
+.login-card h2 {
+    text-align: center;
+    color: white;
+    margin-bottom: 25px;
+}
+
+/* Input Fields */
+.login-card input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+/* Button */
+.login-card button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #27ae60;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-card button:hover {
+    background: #2ecc71;
+    color: rgb(13, 14, 13);
+}
+
+/* Links */
+.login-links {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<div class="login-page">
+    <div class="login-card">
+        <h2>Login</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <input type="email" name="txt_email" placeholder="Email Address" required>
+            <input type="password" name="txt_password" placeholder="Password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="login-links">
+            <a href="{% url 'Guest:NewUser' %}">New User</a> |
+            <a href="{% url 'Guest:WorkerRegistration' %}">New Worker</a>
+        </div>
+    </div>
+</div>
+
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+    window.location = "{% url 'Guest:Login' %}";
+</script>
+{% endif %}
+
+{% endblock content %}
+
+
+
+
+
+

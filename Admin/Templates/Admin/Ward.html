@@ -1,0 +1,185 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+
+<style>
+/* Page background */
+.ward-page {
+    min-height: 100vh;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Main container */
+.ward-container {
+    width: 800px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    animation: slideFade 0.9s ease;
+}
+
+/* Animation */
+@keyframes slideFade {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Headings */
+.ward-container h2 {
+    text-align: center;
+    color: #1d976c;
+    margin-bottom: 20px;
+}
+
+/* Form table */
+.ward-form table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+.ward-form td {
+    border: none;
+    font-size: 14px;
+}
+
+/* Inputs */
+.ward-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+
+.ward-form input[type="number"]:focus {
+    border-color: #1d976c;
+    box-shadow: 0 0 6px rgba(29,151,108,0.5);
+}
+
+/* Button */
+.ward-form input[type="submit"] {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px;
+    background: #1d976c;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.ward-form input[type="submit"]:hover {
+    background: #148f63;
+}
+
+/* Display table */
+.ward-table {
+    margin-top: 30px;
+}
+
+.ward-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ward-table th,
+.ward-table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.ward-table tr:first-child {
+    background: #1d976c;
+    color: white;
+}
+
+.ward-table tr:nth-child(even) {
+    background: #f4fdf9;
+}
+
+.ward-table tr:hover {
+    background: #e0f5ec;
+}
+
+/* Action link */
+.ward-table a {
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.ward-table a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<div class="ward-page">
+    <div class="ward-container">
+
+        <h2>Ward Management</h2>
+
+        <form action="" method="post" class="ward-form">
+            {% csrf_token %}
+
+            <table border="1">
+                <tr>
+                    <td>Ward Number</td>
+                    <td>
+                        <input required type="number" name="txt_ward"
+                        pattern="[7-9]{1}[0-9]{9}"
+                        title="Ward number with 7-9 and remaing 9 digit with 0-9"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+
+            <div class="ward-table">
+                <table border="1">
+                    <tr>
+                        <td>Sl.No</td>
+                        <td>Ward Number</td>
+                        <td>Action</td>
+                    </tr>
+
+                    {% for i in warddata %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.ward_number }}</td>
+                        <td>
+                            <a href="{% url 'Admin:delward' i.id %}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Admin:Ward' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

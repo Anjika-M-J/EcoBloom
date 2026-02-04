@@ -1,0 +1,183 @@
+{% extends 'Guest/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worker Registration</title>
+
+    <style>
+        body {
+    min-height: 100vh;
+    background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("https://i.pinimg.com/1200x/4d/b3/d8/4db3d8596a13d9b715261dabc8c1cec0.jpg") no-repeat center center/cover;
+}
+
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: #ffffff;
+            width: 420px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.15);
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2e7d32;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #2e7d32;
+        }
+
+        input[type="file"] {
+            border: none;
+        }
+
+        .btn {
+            width: 100%;
+            background: #2e7d32;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #256528;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h2>Worker Registration</h2>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Name</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input required type="text" name="txt_name"
+                        value="{{editworker.worker_name}}"
+                        pattern="^[A-Z]+[a-zA-Z ]*$"
+                        title="First letter must be capital, alphabets only">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Email</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input required type="email" name="txt_email"
+                        value="{{editworker.worker_email}}">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Contact</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input required type="number" name="txt_contact"
+                        value="{{editworker.worker_contact}}"
+                        pattern="[7-9]{1}[0-9]{9}"
+                        title="Phone number must start with 7-9">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Address</td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea required name="txt_address" rows="3"></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Photo</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input required type="file" name="txt_photo">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>ID Proof</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input required type="file" name="txt_proof">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Password</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input required type="password" name="txt_password"
+                        value="{{editworker.worker_password}}"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="At least 8 characters with uppercase, lowercase & number">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="submit" value="Register" class="btn">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location="{% url 'Guest:WorkerRegistration' %}";
+</script>
+{% endif %}
+
+</body>
+</html>
+{% endblock content %}

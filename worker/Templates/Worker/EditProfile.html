@@ -1,0 +1,179 @@
+{% extends 'worker/Head.html' %}
+{% block content %}
+
+<style>
+    body {
+        background: #f3f4f6; /* soft gray background */
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .edit-profile-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .edit-profile-card {
+        width: 420px;
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        padding: 25px 30px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Decorative gradient circle behind card */
+    .edit-profile-card::before {
+        content: '';
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 150px;
+        height: 150px;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        border-radius: 50%;
+        opacity: 0.2;
+    }
+
+    .edit-title {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        color: #2575fc;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 10px 6px;
+        font-size: 14px;
+    }
+
+    td:first-child {
+        font-weight: bold;
+        color: #555;
+        width: 40%;
+    }
+
+    input[type="text"], input[type="email"], input[type="number"], input[type="file"] {
+        width: 100%;
+        padding: 9px 11px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        transition: 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: #2575fc;
+        box-shadow: 0 0 6px rgba(37,117,252,0.35);
+    }
+
+    .profile-preview {
+        display: block;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 10px auto;
+        border: 3px solid #6a11cb;
+        transition: transform 0.3s ease;
+    }
+
+    .profile-preview:hover {
+        transform: scale(1.05);
+    }
+
+    .btn-area {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    input[type="submit"] {
+        background: linear-gradient(90deg, #6a11cb, #2575fc);
+        color: white;
+        border: none;
+        padding: 10px 32px;
+        font-size: 15px;
+        border-radius: 22px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    }
+</style>
+
+<div class="edit-profile-container">
+    <div class="edit-profile-card">
+
+        <div class="edit-title">Edit Profile</div>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input required type="text" name="txt_name" value="{{Data.worker_name}}" 
+                        pattern="^[A-Z]+[a-zA-Z ]*$" 
+                        title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Email</td>
+                    <td><input required type="email" name="txt_email" value="{{Data.worker_email}}"></td>
+                </tr>
+
+                <tr>
+                    <td>Contact</td>
+                    <td><input required type="number" name="txt_contact" value="{{Data.worker_contact}}" 
+                        pattern="[7-9]{1}[0-9]{9}" 
+                        title="Phone number with 7-9 and remaining 9 digits 0-9">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Photo</td>
+                    <td>
+                        <input type="file" name="txt_photo">
+                        {% if profiledata %}
+                        <img src="{{profiledata.worker_photo.url}}" alt="Profile Photo" class="profile-preview">
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="btn-area">
+                        <input type="submit" value="Update">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+</div>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location="{% url 'worker:Profile' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

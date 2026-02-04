@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name"  value="{{Data.seller_name}} "id=""></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="txt_email" value="{{Data.seller_email}}"></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="number" name="txt_contact" value="{{Data.seller_contactno}}" id=""></td>
+            </tr>
+            <tr>
+                <td>Establishdate</td>
+                <td><input type="date" name="txt_estbdate" value="{{Data.seller_establishdate}}" id=""></td>
+            </tr>
+            <tr>
+                <td>License No</td>
+                <td><input type="number" name="txt_lno" value="{{Data.seller_Licenseno}}" id=""></td>
+            </tr>
+           
+            <tr>
+                <td>Owner Name</td>
+                <td><input type="text" name="txt_on" value="{{Data.seller_ownername}}" id=""></td>
+            </tr>
+            
+            <tr>
+                <td colspan="2" align="center">
+               <input type="submit" value="Update">
+            </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+{% if msg %}
+<script>alert("{{msg}}")
+window.location="{% url 'Seller:SellerProfile' %}"
+</script>
+{% endif %}

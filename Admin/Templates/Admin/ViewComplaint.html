@@ -1,0 +1,155 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+
+<style>
+    body {
+        background-color: #eef1f6;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    h3 {
+        text-align: center;
+        color: #34495e;
+        margin: 25px 0 15px;
+        letter-spacing: 1px;
+    }
+
+    .card {
+        background: #ffffff;
+        padding: 25px;
+        margin: 20px auto;
+        border-radius: 14px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        width: 95%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        padding: 12px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    td {
+        padding: 12px;
+        font-size: 14px;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    tr:hover {
+        background-color: #f4f8ff;
+    }
+
+    .reply-btn {
+        background-color: #f39c12;
+        color: white;
+        padding: 6px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+
+    .reply-btn:hover {
+        background-color: #d68910;
+        transform: scale(1.05);
+    }
+
+    .reply-text {
+        background-color: #ecf0f1;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 13px;
+        color: #2c3e50;
+    }
+
+    .section-divider {
+        height: 3px;
+        width: 100px;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        margin: 10px auto 20px;
+        border-radius: 3px;
+    }
+</style>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- NEW COMPLAINTS -->
+    <div class="card">
+        <h3>NEW COMPLAINTS</h3>
+        <div class="section-divider"></div>
+
+        <table>
+            <tr>
+                <th>Sl.No</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+
+            {% for i in viewcomplaintdata %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.user.user_name }}</td>
+                <td>{{ i.user.user_email }}</td>
+                <td>{{ i.complaint_title }}</td>
+                <td>{{ i.complaint_content }}</td>
+                <td>{{ i.complaint_date }}</td>
+                <td>
+                    <a href="{% url 'Admin:Reply' i.id %}" class="reply-btn">
+                        Reply
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- REPLIED COMPLAINTS -->
+    <div class="card">
+        <h3>REPLIED COMPLAINTS</h3>
+        <div class="section-divider"></div>
+
+        <table>
+            <tr>
+                <th>Sl.No</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Date</th>
+                <th>Reply</th>
+            </tr>
+
+            {% for i in replied %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.user.user_name }}</td>
+                <td>{{ i.user.user_email }}</td>
+                <td>{{ i.complaint_title }}</td>
+                <td>{{ i.complaint_content }}</td>
+                <td>{{ i.complaint_date }}</td>
+                <td>
+                    <span class="reply-text">
+                        {{ i.complaint_reply }}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</form>
+
+{% endblock content %}

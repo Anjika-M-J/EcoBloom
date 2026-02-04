@@ -1,0 +1,166 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+
+<style>
+/* Page wrapper */
+.waste-page {
+    min-height: 100vh;
+    background: #ffffff;
+    padding: 40px 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Section container */
+.waste-container {
+    width: 750px;
+    margin: auto;
+    background: #fdfefe;
+    padding: 25px 30px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Title */
+.waste-container h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    border-left: 5px solid #27ae60;
+    padding-left: 10px;
+}
+
+/* Form table */
+.waste-form table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.waste-form td {
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+}
+
+/* Input */
+.waste-form input[type="text"] {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+.waste-form input[type="text"]:focus {
+    border-color: #27ae60;
+}
+
+/* Button */
+.waste-form input[type="submit"] {
+    padding: 8px 24px;
+    border: none;
+    border-radius: 6px;
+    background: #27ae60;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.waste-form input[type="submit"]:hover {
+    background: #219150;
+}
+
+/* List table */
+.waste-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.waste-table th,
+.waste-table td {
+    padding: 11px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.waste-table tr:first-child {
+    background: #f2f4f7;
+    font-weight: bold;
+}
+
+.waste-table tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.waste-table tr:hover {
+    background: #f9fafb;
+}
+
+/* Action link */
+.waste-table a {
+    color: #e74c3c;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.waste-table a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<div class="waste-page">
+    <div class="waste-container">
+
+        <h2>Waste Category</h2>
+
+        <form action="" method="post" class="waste-form">
+            {% csrf_token %}
+
+            <table border="1">
+                <tr>
+                    <td>Waste Category</td>
+                    <td>
+                        <input required type="text" name="txt_wastecategory"
+                               value="{{editdata.category_name}}"
+                               title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter"
+                               pattern="^[A-Z]+[a-zA-Z ]*$"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right">
+                        <input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+
+            <div class="waste-table">
+                <table border="1">
+                    <tr>
+                        <td>SL.No</td>
+                        <td>Waste Category</td>
+                        <td>Action</td>
+                    </tr>
+
+                    {% for i in wastecategorydata %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.wastecategory_name }}</td>
+                        <td>
+                            <a href="{% url 'Admin:delwastecategory' i.id %}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location = "{% url 'Admin:WasteCategory' %}";
+</script>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,117 @@
+{% extends 'User/Head.html' %}
+
+{% block content %}
+
+<h2>Ward Workers</h2>
+
+<table border="1" width="100%">
+    <tr>
+        <th>SL NO</th>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Contact</th>
+        <th>City</th>
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>
+            <img src="{{ i.worker_photo.url }}" width="100px">
+        </td>
+        <td>{{ i.worker_name }}</td>
+        <td>{{ i.worker_contact }}</td>
+        <td>{{ i.worker_curr_city }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+<!-- Map -->
+<div id="map" style="height: 400px; width: 100%;"></div>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<!-- MarkerCluster CSS -->
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"/>
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- MarkerCluster JS (AFTER Leaflet JS) -->
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+
+<!-- Worker Data -->
+<script>
+    const workers = [
+        {% for i in data %}
+        {
+            name: "{{ i.worker_name }}"
+            lat: {{ i.worker_latitude|floatformat }}
+            lng: {{ i.worker_longitude|floatformat }}
+            city: "{{ i.worker_curr_city }}"
+        }
+        {% endfor %}
+        ];
+</script>
+
+<script>
+    // Initialize map
+    const map = L.map('map').setView([10.8505, 76.2711], 7);
+
+    // Tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // 🔥 Create marker cluster group
+    const markerCluster = L.markerClusterGroup();
+
+    const bounds = [];
+
+    workers.forEach(worker => {
+        const lat = parseFloat(worker.lat);
+        const lng = parseFloat(worker.lng);
+
+        if (!isNaN(lat) && !isNaN(lng)) {
+
+            const marker = L.marker([lat, lng])
+                .bindPopup(
+                    `<b>${worker.name}</b><br>${worker.city}`
+                );
+
+            // ✅ Add marker to cluster
+            markerCluster.addLayer(marker);
+
+            bounds.push([lat, lng]);
+        }
+    });
+
+    // ✅ Add cluster group to map
+    map.addLayer(markerCluster);
+
+    // Auto zoom handling
+    if (bounds.length === 1) {
+        map.setView(bounds[0], 15);
+    } 
+    else if (bounds.length > 1) {
+        map.fitBounds(bounds, { padding: [40, 40] });
+    } 
+    else {
+        map.setView([10.8505, 76.2711], 7);
+    }
+</script>
+
+
+
+
+{% endblock content %}
