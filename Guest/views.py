@@ -3,6 +3,8 @@ from Admin.models import *
 from Guest.models import *
 from worker.models import *
 # Create your views here.
+
+
 def NewUser(request):
     warddata=tbl_ward.objects.all()
     if request.method=="POST":
