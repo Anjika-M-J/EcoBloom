@@ -7,6 +7,7 @@ from django.utils import timezone
 from datetime import date
 from django.conf import settings
 from django.core.mail import send_mail
+from django.db.models import Sum
 
 def District(request):
     districtdata=tbl_district.objects.all()
@@ -409,6 +410,18 @@ def ViewFeedback(request):
         admindata=tbl_adminregistration.objects.get(id=request.session['aid'])
         feedbackdata=tbl_feedback.objects.all()
         return render(request,"Admin/ViewFeedback.html",{'Data':admindata,'feedbackdata':feedbackdata})
+def WardWiseReport(request):
+
+    ward_report = tbl_waste.objects.filter(waste_status=1 ).values('user_id__ward_id__ward_number').annotate(
+        total_qty=Sum('waste_qty')).order_by('user_id__ward_id__ward_number')
+    return render(request, 'Admin/WardWiseReport.html', {'ward_report': ward_report})
+
+def CategoryWiseReport(request):
+
+    category_report = tbl_waste.objects.filter(waste_status=1).values('wastecategory_id__wastecategory_name').annotate(
+        total_qty=Sum('waste_qty')).order_by('wastecategory_id__wastecategory_name')
+    return render(request, 'Admin/CategoryWiseReport.html', {'category_report': category_report})
+
 def Logout(request):
     del request.session['aid']
     return redirect("Guest:Login")

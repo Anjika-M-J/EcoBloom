@@ -46,5 +46,8 @@ urlpatterns = [
     path('AssignWard/<int:wid>',views.AssignWard,name="AssignWard"),
     path('delassignedward/<int:wid>/<int:did>',views.delassignedward,name="delassignedward"),
     path('ViewFeedback/',views.ViewFeedback,name="ViewFeedback"),
+    path('WardWiseReport/', views.WardWiseReport, name='WardWiseReport'),
+    path('CategoryWiseReport/', views.CategoryWiseReport, name='CategoryWiseReport'),
+
     path('Logout/',views.Logout,name="Logout")
 ]

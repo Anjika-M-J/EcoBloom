@@ -54,14 +54,15 @@
     const workers = [
         {% for i in data %}
         {
-            name: "{{ i.worker_name }}"
-            lat: {{ i.worker_latitude|floatformat }}
-            lng: {{ i.worker_longitude|floatformat }}
+            name: "{{ i.worker_name }}",
+            lat: {{ i.worker_latitude|default:"null" }},
+            lng: {{ i.worker_longitude|default:"null" }},
             city: "{{ i.worker_curr_city }}"
-        }
+        }{% if not forloop.last %},{% endif %}
         {% endfor %}
-        ];
+    ];
 </script>
+
 
 <script>
     // Initialize map

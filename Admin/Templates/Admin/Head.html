@@ -22,85 +22,123 @@
           <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="index.html"><img src="{% static 'Admin/template/assets/images/logo-mini.svg' %}" alt="logo" /></a>
         </div>
         <ul class="nav">
-          <li class="nav-item nav-profile">
-            <a href="#" class="nav-link">
-              <div class="nav-profile-image">
-                <img src="{% static 'Admin/template/assets/images/faces/face1.jpg' %}" alt="profile" />
-                <span class="login-status online"></span>
-                <!--change to offline or busy as needed-->
-              </div>
-              <div class="nav-profile-text d-flex flex-column pr-3">
-                <span class="font-weight-medium mb-2">{{Data.admin_name}}</span>
-                <span class="font-weight-normal"></span>
-              </div>
-              <span class="badge badge-danger text-white ml-3 rounded"></span>
-            </a>
-          </li>
+
+  <!-- PROFILE -->
+  <li class="nav-item nav-profile">
+    <a href="#" class="nav-link">
+      <div class="nav-profile-image">
+        <img src="{% static 'Admin/template/assets/images/faces/face1.jpg' %}" alt="profile" />
+        <span class="login-status online"></span>
+      </div>
+      <div class="nav-profile-text d-flex flex-column pr-3">
+        <span class="font-weight-medium mb-2">{{ Data.admin_name }}</span>
+      </div>
+    </a>
+  </li>
+
+  <!-- DASHBOARD -->
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'Admin:HomePage' %}">
+      <i class="mdi mdi-home menu-icon"></i>
+      <span class="menu-title">Dashboard</span>
+    </a>
+  </li>
+
+  <!-- MANAGEMENT -->
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="#management" aria-expanded="false" aria-controls="management">
+      <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+      <span class="menu-title">Management</span>
+      <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="management">
+      <ul class="nav flex-column sub-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'Admin:Ward' %}">Ward</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'Admin:WasteCategory' %}">Waste Category</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'Admin:UserList' %}">Users</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+  <!-- WORKERS -->
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'Admin:ViewWorker' %}">
+      <i class="mdi mdi-account-group menu-icon"></i>
+      <span class="menu-title">Workers</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'Admin:WorkerVerification' %}">
+      <i class="mdi mdi-account-check menu-icon"></i>
+      <span class="menu-title">Worker Verification</span>
+    </a>
+  </li>
+
+  <!-- USER INTERACTION -->
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'Admin:ViewComplaint' %}">
+      <i class="mdi mdi-alert-circle-outline menu-icon"></i>
+      <span class="menu-title">Complaints</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'Admin:ViewFeedback' %}">
+      <i class="mdi mdi-message-text-outline menu-icon"></i>
+      <span class="menu-title">Feedback</span>
+    </a>
+  </li>
+
+  <!-- REPORTS -->
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="reports">
+      <i class="mdi mdi-chart-bar menu-icon"></i>
+      <span class="menu-title">Reports</span>
+      <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="reports">
+      <ul class="nav flex-column sub-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'Admin:CategoryWiseReport' %}">
+            Category-wise Report
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'Admin:WardWiseReport' %}">
+            Ward-wise Report
+          </a>
+        </li>
+      </ul>
+    </div>
+  </li>
+
+  <!-- SYSTEM -->
+  <li class="nav-item sidebar-actions">
+    <div class="nav-link">
+      <div class="mt-4">
+        <div class="border-none">
+          <a class="nav-link" href="#">Notification</a>
+        </div>
+        <ul class="mt-4 pl-0">
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'Admin:HomePage' %}">
-              <i class="mdi mdi-home menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
+            <a class="nav-link text-danger" href="{% url 'Admin:Logout' %}">
+              Logout
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-              <span class="menu-title">Management</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'Admin:Ward' %}">Ward</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'Admin:WasteCategory' %}">Waste Category</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'Admin:UserList' %}">Users</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'Admin:ViewWorker' %}">
-              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-              <span class="menu-title">Workers</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'Admin:WorkerVerification' %}">
-              <i class="mdi mdi-chart-bar menu-icon"></i>
-              <span class="menu-title">Worker Verification</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'Admin:ViewComplaint' %}">
-              <i class="mdi mdi-table-large menu-icon"></i>
-              <span class="menu-title">Complaints</span>
-            </a>
-          </li>
-        
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'Admin:ViewFeedback' %}">
-              <i class="mdi mdi-file-document-box menu-icon"></i>
-              <span class="menu-title">Feedback</span>
-            </a>
-          </li>
-          <li class="nav-item sidebar-actions">
-            <div class="nav-link">
-              <div class="mt-4">
-                <div class="border-none">
-                  <p class="text-black">Notification</p>
-                </div>
-                <ul class="mt-4 pl-0">
-                  <a class="nav-link" href="{% url 'Admin:Logout' %}">Logout</a>
-                </ul>
-              </div>
-            </div>
           </li>
         </ul>
+      </div>
+    </div>
+  </li>
+
+</ul>
+
       </nav>
       <div class="container-fluid page-body-wrapper">
         <div id="theme-settings" class="settings-panel">

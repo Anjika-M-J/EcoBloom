@@ -1,0 +1,121 @@
+{% extends 'Admin/Head.html' %}
+
+{% block content %}
+
+<style>
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    h3 {
+        text-align: center;
+        margin-top: 40px;
+        color: #34495e;
+    }
+
+    table {
+        margin: auto;
+        border-collapse: collapse;
+        background: #ffffff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    table th {
+        background-color: #2ecc71;
+        color: white;
+        padding: 12px;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    table td {
+        padding: 10px;
+        text-align: center;
+        font-size: 14px;
+        color: #333;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+
+    table tr:hover {
+        background-color: #eafaf1;
+    }
+
+    canvas {
+        display: block;
+        margin: 30px auto;
+        background: #ffffff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+</style>
+
+<h2>Ward-wise Waste Collection Report</h2>
+
+<table border="1" width="60%">
+    <tr>
+        <th>Ward Number</th>
+        <th>Total Waste Collected (kg)</th>
+    </tr>
+
+    {% for i in ward_report %}
+    <tr>
+        <td>Ward {{ i.user_id__ward_id__Ward_number }}</td>
+        <td>{{ i.total_qty }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2">No data available</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br><br>
+
+<h3>Ward-wise Waste Collection Graph</h3>
+<canvas id="wardChart" style="max-width:700px; height:400px;"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const wardLabels = [
+        {% for i in ward_report %}
+            "Ward {{ i.user_id__ward_id__ward_number }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    const wardData = [
+        {% for i in ward_report %}
+            {{ i.total_qty }}{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    new Chart(document.getElementById('wardChart'), {
+        type: 'bar',
+        data: {
+            labels: wardLabels,
+            datasets: [{
+                label: 'Waste Collected (kg)',
+                data: wardData,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

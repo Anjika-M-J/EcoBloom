@@ -101,7 +101,7 @@ def viewwardworker(request):
     workers = tbl_worker.objects.filter(
         id__in=assignments.values_list('worker_id', flat=True)
     )
-
+    # print(workers)
     return render(request,'User/ViewWardWorker.html',{'data':workers})
 
 def delwaste(request,did):
