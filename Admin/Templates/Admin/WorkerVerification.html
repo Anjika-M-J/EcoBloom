@@ -72,6 +72,17 @@
         font-weight: bold;
         color: #555;
     }
+    .btn-download {
+    display: inline-block;
+    margin-top: 5px;
+    background-color: #3498db;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
 </style>
 
 <div class="card">
@@ -98,7 +109,13 @@
                 <td>{{ i.worker_contact }}</td>
                 <td>{{ i.worker_address }}</td>
                 <td><img src="{{ i.worker_photo.url }}" width="80"></td>
-                <td><img src="{{ i.worker_proof.url }}" width="80"></td>
+                <td>
+                <img src="{{ i.worker_proof.url }}" width="80">
+                <br>
+                <a href="{{ i.worker_proof.url }}" download class="btn-download">Download</a>
+            </td>
+
+
 
                 {% if i.worker_status == 0 %}
                     <td><a href="{% url 'Admin:acceptworker' i.id %}" class="btn-accept">Accept</a></td>

@@ -3,191 +3,166 @@
 
 <style>
     body {
-    min-height: 100vh;
-    background:
-        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-        url("https://i.pinimg.com/736x/1e/0b/17/1e0b17776ca114a831899f313a897037.jpg") no-repeat center center/cover;
-}
-    .register-container {
-        width: 450px;
-        margin: 40px auto;
-        padding: 25px;
-        background-color: #d6d1dd;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background:
+            linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+            url("https://i.pinimg.com/736x/1e/0b/17/1e0b17776ca114a831899f313a897037.jpg") no-repeat center center/cover;
     }
 
-    .register-container h2 {
+    .page-wrapper {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 0;
+    }
+
+    .register-card {
+        width: 420px;
+        padding: 35px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        color: white;
+    }
+
+    .register-card h2 {
         text-align: center;
-        color: #2e7d32;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        font-weight: bold;
+        letter-spacing: 1px;
     }
 
-    .register-container table {
-        width: 100%;
+    .form-group {
+        margin-bottom: 15px;
     }
 
-    .register-container td {
-        padding: 8px;
-    }
-
-    .register-container input,
-    .register-container select,
-    .register-container textarea {
-        width: 100%;
-        padding: 8px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
+    .form-group label {
         font-size: 14px;
+        margin-bottom: 5px;
+        display: block;
     }
 
-    .register-container textarea {
-        resize: none;
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
     }
 
-    .btn-group {
+    .form-control:focus {
+        box-shadow: 0 0 8px #2ecc71;
+    }
+
+    .btn-register {
+        width: 100%;
+        padding: 10px;
+        border-radius: 30px;
+        border: none;
+        background: linear-gradient(90deg, #2ecc71, #27ae60);
+        color: white;
+        font-weight: bold;
+        margin-top: 10px;
+        transition: 0.3s;
+    }
+
+    .btn-register:hover {
+        transform: scale(1.05);
+        background: linear-gradient(90deg, #27ae60, #1e8449);
+    }
+
+    .login-link {
         text-align: center;
         margin-top: 15px;
-    }
-
-    .btn-group input {
-        width: 120px;
-        padding: 8px;
-        margin: 5px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
         font-size: 14px;
     }
 
-    .btn-submit {
-        background-color: #2e7d32;
-        color: white;
+    .login-link a {
+        color: #2ecc71;
+        font-weight: bold;
+        text-decoration: none;
     }
 
-    .btn-cancel {
-        background-color: #9e9e9e;
-        color: white;
+    .login-link a:hover {
+        text-decoration: underline;
     }
-
-    .btn-submit:hover {
-        background-color: #1b5e20;
-    }
-
-    .btn-cancel:hover {
-        background-color: #616161;
-    }
-    .login-link {
-    margin-top: 15px;
-    text-align: center;
-    font-size: 14px;
-    color: #555;
-}
-
-.login-link a {
-    color: #2e7d32;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
-}
-
 </style>
 
-<div class="register-container">
-    <h2>User Registration</h2>
+<div class="page-wrapper">
+    <div class="register-card">
+        <h2>Create Account</h2>
 
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Name</td>
-                <td>
-                    <input type="text" name="txt_name" required
-                    pattern="^[A-Z]+[a-zA-Z ]*$"
-                    title="First letter capital, alphabets only">
-                </td>
-            </tr>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
 
-            <tr>
-                <td>House No</td>
-                <td><input type="number" name="txt_hno" required></td>
-            </tr>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="txt_name"  placeholder="Enter Your Name"      class="form-control" required>
+            </div>
 
-            <tr>
-                <td>Contact</td>
-                <td>
-                    <input type="number" name="txt_con" required
-                    pattern="[7-9]{1}[0-9]{9}"
-                    title="10 digit number starting with 7-9">
-                </td>
-            </tr>
+            <div class="form-group">
+                <label>House No</label>
+                <input type="number" name="txt_hno" placeholder="Enter Your House Number" class="form-control" required>
+            </div>
 
-            <tr>
-                <td>Email</td>
-                <td><input type="email" name="txt_email" required></td>
-            </tr>
+            <div class="form-group">
+                <label>Contact</label>
+                <input type="number" name="txt_con" placeholder="Enter Your Contact Number" class="form-control" required>
+            </div>
 
-            <tr>
-                <td>Password</td>
-                <td>
-                    <input type="password" name="txt_pass" required
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                </td>
-            </tr>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="txt_email" placeholder="Enter Your Email" class="form-control" required>
+            </div>
 
-            <tr>
-                <td>Confirm Password</td>
-                <td>
-                    <input type="password" name="txt_confpass" required>
-                </td>
-            </tr>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="txt_pass" placeholder="Enter Your Password" class="form-control" required>
+            </div>
 
-            <tr>
-                <td>Ward</td>
-                <td>
-                    <select name="sel_ward" required>
-                        <option value="">-- Select Ward --</option>
-                        {% for i in warddata %}
-                        <option value="{{i.id}}">{{i.ward_number}}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" name="txt_confpass" placeholder="Re-enter Your Password"class="form-control" required>
+            </div>
 
-            <tr>
-                <td>Address</td>
-                <td>
-                    <textarea name="txt_address" rows="3" required></textarea>
-                </td>
-            </tr>
+            <div class="form-group">
+                <label>Ward</label>
+                <select name="sel_ward" class="form-control" required>
+                    <option value="">-- Select Ward --</option>
+                    {% for i in warddata %}
+                    <option value="{{i.id}}">{{i.ward_number}}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-            <tr>
-                <td>Photo</td>
-                <td><input type="file" name="txt_photo" required></td>
-            </tr>
-        </table>
+            <div class="form-group">
+                <label>Address</label>
+                <textarea name="txt_address" rows="3" placeholder="Enter Your Address" class="form-control" required></textarea>
+            </div>
 
-        <div class="btn-group">
-            <input type="submit" value="Register" class="btn-submit">
-            <input type="reset" value="Cancel" class="btn-cancel">
-        </div>
-        <div class="login-link">
-    Already registered?
-    <a href="{% url 'Guest:Login' %}">Login here</a>
+            <div class="form-group">
+                <label>Photo</label>
+                <input type="file" name="txt_photo" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn-register">Register</button>
+
+            <div class="login-link">
+                Already registered?
+                <a href="{% url 'Guest:Login' %}">Login here</a>
+            </div>
+        </form>
+    </div>
 </div>
-
-    </form>
-</div>
-
-{% if msg %}
-<script>
-    alert("{{msg}}");
-    window.location="{% url 'Guest:NewUser' %}";
-</script>
-{% endif %}
+{% if msg %} 
+<script> 
+alert("{{msg}}");
+ window.location="{% url 'Guest:NewUser' %}"; 
+ </script>
+ {% endif %}
 
 {% endblock content %}

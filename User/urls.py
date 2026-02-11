@@ -15,5 +15,6 @@ urlpatterns = [
     path('delfeedback/<int:did>',views.delfeedback,name="delfeedback"),
     path('Payment/',views.Payment,name="Payment"),
     path('ViewWasteStatus/',views.ViewWasteStatus,name="ViewWasteStatus"),
+    path('UserCategoryReport/', views.UserCategoryReport, name="UserCategoryReport"),
     path('Logout/',views.Logout,name="Logout")    
 ]

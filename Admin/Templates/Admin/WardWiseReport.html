@@ -1,65 +1,144 @@
 {% extends 'Admin/Head.html' %}
-
 {% block content %}
 
 <style>
-    h2 {
+    body {
+        background-color: #f4f6f9;
+    }
+
+    .page-title {
         text-align: center;
-        margin-bottom: 20px;
+        font-size: 28px;
+        font-weight: 600;
+        margin: 30px 0;
         color: #2c3e50;
     }
 
-    h3 {
-        text-align: center;
-        margin-top: 40px;
+    .card-box {
+        width: 70%;
+        margin: auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: 600;
         color: #34495e;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    select, input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    select:focus, input:focus {
+        border-color: #2ecc71;
+        outline: none;
+        box-shadow: 0 0 5px rgba(46, 204, 113, 0.4);
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(45deg, #27ae60, #2ecc71);
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+        background: linear-gradient(45deg, #219150, #27ae60);
     }
 
     table {
-        margin: auto;
+        width: 70%;
+        margin: 40px auto;
         border-collapse: collapse;
-        background: #ffffff;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        border-radius: 8px;
+        background: white;
+        border-radius: 10px;
         overflow: hidden;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
     }
 
     table th {
-        background-color: #2ecc71;
+        background: #27ae60;
         color: white;
         padding: 12px;
         text-align: center;
-        font-size: 15px;
     }
 
     table td {
         padding: 10px;
         text-align: center;
-        font-size: 14px;
-        color: #333;
-    }
-
-    table tr:nth-child(even) {
-        background-color: #f8f9fa;
+        border-bottom: 1px solid #eee;
     }
 
     table tr:hover {
-        background-color: #eafaf1;
+        background-color: #f2fdf6;
     }
 
-    canvas {
-        display: block;
+    .chart-container {
+        width: 70%;
         margin: 30px auto;
-        background: #ffffff;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
     }
+
 </style>
 
-<h2>Ward-wise Waste Collection Report</h2>
+<div class="page-title">
+    Ward-wise Waste Collection Report
+</div>
 
-<table border="1" width="60%">
+<div class="card-box">
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Select Ward</label>
+            <select name="ward" required>
+                <option value="">-- Select Ward --</option>
+                {% for w in wards %}
+                    <option value="{{ w.id }}">Ward {{ w.ward_number }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>From Date</label>
+            <input type="date" name="from_date" required>
+        </div>
+
+        <div class="form-group">
+            <label>To Date</label>
+            <input type="date" name="to_date" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Generate Report</button>
+    </form>
+</div>
+
+{% if ward_report %}
+
+<table>
     <tr>
         <th>Ward Number</th>
         <th>Total Waste Collected (kg)</th>
@@ -67,7 +146,7 @@
 
     {% for i in ward_report %}
     <tr>
-        <td>Ward {{ i.user_id__ward_id__Ward_number }}</td>
+        <td>Ward {{ i.user_id__ward_id__ward_number }}</td>
         <td>{{ i.total_qty }}</td>
     </tr>
     {% empty %}
@@ -77,10 +156,9 @@
     {% endfor %}
 </table>
 
-<br><br>
-
-<h3>Ward-wise Waste Collection Graph</h3>
-<canvas id="wardChart" style="max-width:700px; height:400px;"></canvas>
+<div class="chart-container">
+    <canvas id="wardChart"></canvas>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -117,5 +195,7 @@
         }
     });
 </script>
+
+{% endif %}
 
 {% endblock %}

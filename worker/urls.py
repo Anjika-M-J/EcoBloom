@@ -12,6 +12,8 @@ urlpatterns = [
     path('ViewWaste/',views.ViewWaste,name="ViewWaste"),
     path('Collect/<int:cid>',views.Collect,name="Collect"),
     path('ViewCollectionHistory/',views.ViewCollectionHistory,name="ViewCollectionHistory"),
+    path('WorkerMyAttendance/', views.WorkerMyAttendance, name="WorkerMyAttendance"),
+
     path('Logout/',views.Logout,name="Logout")
 ]
     

@@ -1,0 +1,126 @@
+{% extends 'Worker/Head.html' %}
+{% block content %}
+
+<style>
+    body { background: #f4f6f9; }
+
+    .title {
+        text-align: center;
+        font-size: 26px;
+        font-weight: 600;
+        margin: 30px 0;
+        color: #2c3e50;
+    }
+
+    .card-box {
+        width: 70%;
+        margin: auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+
+    .form-group { margin-bottom: 15px; }
+
+    input[type="date"] {
+        width: 100%;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #27ae60;
+        border: none;
+        color: white;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    table {
+        width: 70%;
+        margin: 30px auto;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+
+    table th {
+        background: #27ae60;
+        color: white;
+        padding: 10px;
+    }
+
+    table td {
+        padding: 8px;
+        text-align: center;
+    }
+
+    .present { color: green; font-weight: bold; }
+    .absent { color: red; font-weight: bold; }
+
+    .summary {
+        width: 70%;
+        margin: auto;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="title">My Attendance Report</div>
+
+<div class="card-box">
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>From Date</label>
+            <input type="date" name="from_date" required>
+        </div>
+
+        <div class="form-group">
+            <label>To Date</label>
+            <input type="date" name="to_date" required>
+        </div>
+
+        <button type="submit">Filter Attendance</button>
+    </form>
+</div>
+
+{% if report %}
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+
+    {% for i in report %}
+    <tr>
+        <td>{{ i.workerattendence_datetime }}</td>
+        <td>
+            {% if i.workerattendence_status == 1 %}
+                <span class="present">Present</span>
+            {% else %}
+                <span class="absent">Absent</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2">No attendance records found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="summary">
+    Total Present: {{ total_present }} |
+    Total Absent: {{ total_absent }}
+</div>
+{% endif %}
+
+{% endblock %}

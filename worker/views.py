@@ -130,6 +130,41 @@ def ViewCollectionHistory(request):
         assignwardata = tbl_assignward.objects.filter(worker_id=request.session['wid']).last()
         wastedata=tbl_waste.objects.filter(waste_status=1,user_id__ward_id=assignwardata.ward_id)
         return render(request,"worker/ViewCollectionHistory.html",{'wastedata':wastedata})
+
+def WorkerMyAttendance(request):
+
+    if "wid" not in request.session:
+        return redirect("Guest:Login")
+
+    worker = tbl_worker.objects.get(id=request.session['wid'])
+    report = None
+    total_present = 0
+    total_absent = 0
+
+    if request.method == "POST":
+        from_date = request.POST.get("from_date")
+        to_date = request.POST.get("to_date")
+
+        report = tbl_workerattendence.objects.filter(
+            worker_id=worker,
+            workerattendence_datetime__range=[from_date, to_date]
+        )
+
+    else:
+        # Show all attendance by default
+        report = tbl_workerattendence.objects.filter(
+            worker_id=worker
+        )
+
+    total_present = report.filter(workerattendence_status=1).count()
+    total_absent = report.filter(workerattendence_status=0).count()
+
+    return render(request, "worker/WorkerMyAttendance.html", {
+        "report": report,
+        "total_present": total_present,
+        "total_absent": total_absent
+    })
+        
 def Logout(request):
     del request.session['wid']
     return redirect("Guest:Login")

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>SMART GREEN MISSION</title>
+    <title>ECOBLOOM</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
@@ -29,30 +29,102 @@
 
 <body>
     <!-- Navbar Start -->
-    <div class="container-fluid p-0 nav-bar">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a href="index.html" class="navbar-brand px-lg-4 m-0">
-                <h1 class="m-0 display-4 text-uppercase text-white">SMART GREEN MISSION</h1>
-            </a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                <div class="navbar-nav ml-auto p-7">
-                    <a href="{% url 'worker:WorkerHomePage' %}" class="nav-item nav-link active">Home</a>
-                    <a href="{% url 'worker:Profile' %}" class="nav-item nav-link">My Profile</a>
-                    {% if status == '1' %}
-                    <a href="{% url 'worker:Attendence' %}" class="nav-item nav-link">Attendence</a>
-                    <a href="{% url 'worker:MyAttendence' %}" class="nav-item nav-link">MyAttendence</a>
-                    <a href="{% url 'worker:ViewWaste' %}" class="nav-item nav-link">View Waste</a>
-                    <a href="{% url 'worker:ViewCollectionHistory' %}" class="nav-item nav-link">View Waste Collection History</a>
-                 {% endif %}
-                  <a href="{% url 'worker:Logout' %}" class="nav-item nav-link">Logout</a>
-                     </div>
-                </div>
+   <div class="container-fluid p-0"
+     style="background: linear-gradient(90deg, #263238, #37474f);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.45);">
+
+    <nav class="navbar navbar-expand-lg navbar-dark py-3 px-4">
+
+        <!-- BRAND -->
+        <h1 style="
+            margin: 0;
+            font-size: 2.1rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+        ">
+            ECOBLOOM
+            <span style="
+                font-size: 0.75rem;
+                font-weight: 700;
+                color: #cfd8dc;
+                letter-spacing: 2px;
+                display: block;
+            ">
+                WORKER PANEL
+            </span>
+        </h1>
+
+        <!-- TOGGLER -->
+        <button class="navbar-toggler ml-auto" type="button"
+                data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- MENU -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+            <div class="navbar-nav align-items-center" style="gap: 10px;">
+
+                <a href="{% url 'worker:WorkerHomePage' %}"
+                   class="nav-item nav-link active"
+                   style="font-weight: 700; letter-spacing: 1px;">
+                    Home
+                </a>
+
+                <a href="{% url 'worker:Profile' %}"
+                   class="nav-item nav-link"
+                   style="font-weight: 700; letter-spacing: 1px;">
+                    My Profile
+                </a>
+
+                {% if status == '1' %}
+                <a href="{% url 'worker:Attendence' %}"
+                   class="nav-item nav-link"
+                   style="font-weight: 700;">
+                    Attendance
+                </a>
+
+                <a href="{% url 'worker:MyAttendence' %}"
+                   class="nav-item nav-link"
+                   style="font-weight: 700;">
+                    My Attendance
+                </a>
+
+                <a href="{% url 'worker:ViewWaste' %}"
+                   class="nav-item nav-link"
+                   style="font-weight: 700;">
+                    View Waste
+                </a>
+
+                <a href="{% url 'worker:ViewCollectionHistory' %}"
+                   class="nav-item nav-link"
+                   style="font-weight: 700;">
+                    Collection History
+                </a>
+                {% endif %}
+
+                <!-- LOGOUT -->
+                <a href="{% url 'worker:Logout' %}"
+                   class="nav-item nav-link"
+                   style="
+                       background: linear-gradient(90deg, #ff9800, #f57c00);
+                       color: #263238;
+                       padding: 7px 18px;
+                       border-radius: 25px;
+                       font-weight: 800;
+                       letter-spacing: 1px;
+                       margin-left: 14px;
+                       box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+                   ">
+                    Logout
+                </a>
+
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+</div>
+
     <div class="container-fluid p-0 mb-5">
         <br>
         <br>

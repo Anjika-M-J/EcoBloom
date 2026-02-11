@@ -3,6 +3,7 @@ from Admin.models import *
 from worker.models import *
 from Guest.models import *
 from User.models import *
+from django.db.models import Sum
 # Create your views here.
 def Profile(request):
     if "uid" not in request.session:
@@ -139,6 +140,26 @@ def ViewWasteStatus(request):
     uid = request.session["uid"]
     waste = tbl_waste.objects.filter(user_id=uid)
     return render(request,"User/ViewWasteStatus.html",{'waste':waste})
+
+def UserCategoryReport(request):
+
+    if "uid" not in request.session:
+        return redirect("Guest:Login")
+
+    user = tbl_user.objects.get(id=request.session['uid'])
+
+    report = tbl_waste.objects.filter(
+        user_id=user
+    ).values(
+        'wastecategory_id__wastecategory_name'
+    ).annotate(
+        total_qty=Sum('waste_qty')
+    )
+
+    return render(request, "User/UserCategoryReport.html", {
+        "report": report,
+        "user": user
+    })
 
 def Logout(request):
     del request.session['uid']

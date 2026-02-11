@@ -412,15 +412,51 @@ def ViewFeedback(request):
         return render(request,"Admin/ViewFeedback.html",{'Data':admindata,'feedbackdata':feedbackdata})
 def WardWiseReport(request):
 
-    ward_report = tbl_waste.objects.filter(waste_status=1 ).values('user_id__ward_id__ward_number').annotate(
-        total_qty=Sum('waste_qty')).order_by('user_id__ward_id__ward_number')
-    return render(request, 'Admin/WardWiseReport.html', {'ward_report': ward_report})
+    wards = tbl_ward.objects.all()
+    ward_report = None
+
+    if request.method == "POST":
+        ward_id = request.POST.get("ward")
+        from_date = request.POST.get("from_date")
+        to_date = request.POST.get("to_date")
+
+        if ward_id and from_date and to_date:
+            ward_report = tbl_waste.objects.filter(
+                user_id__ward_id_id=ward_id,
+                waste_date__range=[from_date, to_date]
+            ).values(
+                'user_id__ward_id__ward_number'
+            ).annotate(
+                total_qty=Sum('waste_qty')
+            )
+
+    return render(request, "Admin/wardwisereport.html", {
+        "ward_report": ward_report,
+        "wards": wards
+    })
 
 def CategoryWiseReport(request):
+    categories = tbl_wastecategory.objects.all()
+    category_report = None
 
-    category_report = tbl_waste.objects.filter(waste_status=1).values('wastecategory_id__wastecategory_name').annotate(
-        total_qty=Sum('waste_qty')).order_by('wastecategory_id__wastecategory_name')
-    return render(request, 'Admin/CategoryWiseReport.html', {'category_report': category_report})
+    if request.method == "POST":
+        category_id = request.POST.get("category")
+        from_date = request.POST.get("from_date")
+        to_date = request.POST.get("to_date")
+
+        category_report = tbl_waste.objects.filter(
+            wastecategory_id=category_id,
+            waste_date__range=[from_date, to_date]
+        ).values(
+            'wastecategory_id__wastecategory_name'
+        ).annotate(
+            total_qty=Sum('waste_qty')
+        )
+
+    return render(request, "Admin/CategoryWiseReport.html", {
+        "categories": categories,
+        "category_report": category_report
+    })
 
 def Logout(request):
     del request.session['aid']

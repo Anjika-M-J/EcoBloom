@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>SMART GREEN MISSION</title>
+    <title>ECOBLOOM</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
@@ -29,27 +29,67 @@
 
 <body>
     <!-- Navbar Start -->
-    <div class="container-fluid p-0 nav-bar">
-        <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
-            <a href="index.html" class="navbar-brand px-lg-4 m-0">
-                <h1 class="m-0 display-4 text-uppercase text-white">SMART GREEN MISSION</h1>
-            </a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                <div class="navbar-nav ml-auto p-4">
-                    <a href="{% url 'Guest:Index' %}" class="nav-item nav-link active">Home</a>
-                    <a href="{% url 'Guest:NewUser' %}" class="nav-item nav-link">User</a>
-                    <a href="{% url 'Guest:Login' %}" class="nav-item nav-link">Login</a>
-                    <a href="{% url 'Guest:WorkerRegistration' %}" class="nav-item nav-link">Worker</a>
-                   
-                    <a href="{% url 'Guest:Index' %}" class="nav-item nav-link">Contact</a>
-                     </div>
-                </div>
+   <div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow"
+         style="background: linear-gradient(90deg, #11998e, #38ef7d);">
+
+        <!-- Brand -->
+        <a href="{% url 'Guest:Login' %}" class="navbar-brand px-lg-4 m-0 d-flex align-items-center">
+            <h1 style="
+                margin: 0;
+                font-size: 2.2rem;
+                font-weight: 900;
+                letter-spacing: 4px;
+                color: white;
+                text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+            ">
+                ECOBLOOM
+            </h1>
+        </a>
+
+        <!-- Toggle Button -->
+        <button class="navbar-toggler ml-auto" type="button"
+                data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+            <div class="navbar-nav align-items-center"
+                 style="font-weight: 600; letter-spacing: 1px;">
+
+                <a href="{% url 'Guest:Index' %}" class="nav-item nav-link text-white px-3">
+                    Home
+                </a>
+
+                <a href="{% url 'Guest:NewUser' %}" class="nav-item nav-link text-white px-3">
+                    Register User
+                </a>
+
+                <a href="{% url 'Guest:WorkerRegistration' %}" class="nav-item nav-link text-white px-3">
+                    Register Worker
+                </a>
+
+                
+
+                <!-- Login Button Highlight -->
+                <a href="{% url 'Guest:Login' %}"
+                   class="nav-item nav-link ml-3"
+                   style="
+                       background: white;
+                       color: #11998e;
+                       padding: 6px 18px;
+                       border-radius: 25px;
+                       font-weight: 700;
+                   ">
+                    Login
+                </a>
+
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+</div>
+
     <!-- Navbar End -->
 
     <!-- Carousel Start -->
@@ -62,7 +102,7 @@
                     <img class="w-100" src="{% static 'Main/img/caro1.jpg' %}" alt="Image" style="height: 700px; object-fit: cover;">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <h2 class="text-primary font-weight-medium m-0">Working Together for a Clean and Green Future</h2>
-                        <h1 class="display-1 text-white m-0">SMART GREEN MISSION</h1>
+                        <h1 class="display-1 text-white m-0">ECOBLOOM</h1>
                         <h2 class="text-white m-0">* SINCE 1950 *</h2>
                     </div>
                 </div>

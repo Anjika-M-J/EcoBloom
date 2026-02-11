@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>SMART GREEN MISSION</title>
+    <title>ECOBLOOM</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
@@ -29,29 +29,79 @@
 
 <body>
     <!-- Navbar Start -->
-    <div class="container-fluid p-0 nav-bar">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            
-                <h1 class="m-0 display-4 text-uppercase text-white">SMART GREEN MISSION</h1>
-            </a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                <div class="navbar-nav ml-auto p-4">
-                    <a href="{% url 'User:HomePage' %}" class="nav-item nav-link active">Home</a>
-                    <a href="{% url 'User:Profile' %}" class="nav-item nav-link">My Profile</a>
-                    <a href="{% url 'User:Complaint' %}" class="nav-item nav-link">Complaint Registration</a>
-                    <a href="{% url 'User:Feedback' %}" class="nav-item nav-link">Feedback</a>
-                    <a href="{% url 'User:Payment' %}" class="nav-item nav-link">Payment</a>
-                <a href="{% url 'User:Waste' %}" class="nav-item nav-link">Waste</a>
-                <a href="{% url 'User:ViewWasteStatus' %}" class="nav-item nav-link">Waste Status</a>
-                <a href="{% url 'User:Logout' %}" class="nav-item nav-link">Logout</a>
-                     </div>
-                </div>
+    <!-- User Navbar Start -->
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow"
+         style="background: linear-gradient(90deg, #0f4c75, #1b9aaa);">
+
+        <!-- Brand -->
+        <a class="navbar-brand d-flex align-items-center px-4" href="#">
+            <i class="fas fa-seedling fa-2x text-warning mr-2"></i>
+            <h1 class="m-0 text-uppercase text-white"
+                style="font-family: 'Montserrat', sans-serif;
+                       font-weight: 800;
+                       letter-spacing: 3px;
+                       font-size: 26px;">
+                ECOBLOOM
+            </h1>
+        </a>
+
+        <!-- Toggle -->
+        <button class="navbar-toggler" type="button"
+                data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+            <div class="navbar-nav px-4"
+                 style="font-family: 'Roboto', sans-serif;
+                        font-size: 15px;
+                        font-weight: 600;
+                        letter-spacing: 1px;">
+
+                <a href="{% url 'User:HomePage' %}" class="nav-item nav-link active">
+                    <i class="fas fa-home mr-1"></i> Home
+                </a>
+
+                <a href="{% url 'User:Profile' %}" class="nav-item nav-link">
+                    <i class="fas fa-user mr-1"></i> My Profile
+                </a>
+
+                <a href="{% url 'User:Complaint' %}" class="nav-item nav-link">
+                    <i class="fas fa-exclamation-circle mr-1"></i> Complaint
+                </a>
+
+                <a href="{% url 'User:Feedback' %}" class="nav-item nav-link">
+                    <i class="fas fa-comment-dots mr-1"></i> Feedback
+                </a>
+
+                <a href="{% url 'User:Payment' %}" class="nav-item nav-link">
+                    <i class="fas fa-credit-card mr-1"></i> Payment
+                </a>
+
+                <a href="{% url 'User:Waste' %}" class="nav-item nav-link">
+                    <i class="fas fa-trash-alt mr-1"></i> Waste
+                </a>
+
+                <a href="{% url 'User:ViewWasteStatus' %}" class="nav-item nav-link">
+                    <i class="fas fa-chart-line mr-1"></i> Waste Status
+                </a>
+
+                <a href="{% url 'User:UserCategoryReport' %}" class="nav-item nav-link">
+                    <i class="fas fa-chart-line mr-1"></i> Waste Report
+                </a>
+
+                <a href="{% url 'User:Logout' %}" class="nav-item nav-link text-warning">
+                    <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                </a>
+
             </div>
-        </nav>
-     </div>
+        </div>
+    </nav>
+</div>
+<!-- User Navbar End -->
+
      <div class="container-fluid p-0 mb-5">
         <br>
         <br>
