@@ -165,6 +165,7 @@
                 <th>Waste Category</th>
                 <th>Quantity</th>
                 <th>Action</th>
+                <th>Location</th>
 
             </tr>
 
@@ -173,8 +174,8 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{i.wastecategory_id.wastecategory_name}}</td>
                 <td>{{i.waste_qty}}</td>
-                <td><a href="{% url 'User:delwaste' i.id %}">Delete</a>
-                    <a href="{% url 'User:viewwardworker' %}">View Worker</a></td>
+                <td><a href="{% url 'User:delwaste' i.id %}">Delete</a></td>
+                <td><a href="{% url 'User:viewwardworker' %}">View Worker</a></td>
             </tr>
             {% endfor %}
         </table>

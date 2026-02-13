@@ -2,6 +2,87 @@
 
 {% block content %}
 
+
+<style>
+    /* Page Title */
+    h2 {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 28px;
+        font-weight: 600;
+        color: #2e7d32;
+        letter-spacing: 1px;
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-family: 'Segoe UI', sans-serif;
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        border: none;
+    }
+
+    table th {
+        background: linear-gradient(45deg, #2e7d32, #43a047);
+        color: white;
+        padding: 14px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: none;
+    }
+
+    table td {
+        padding: 14px;
+        text-align: center;
+        font-size: 14px;
+        color: #444;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    table tr:hover {
+        background-color: #f4fbf4;
+        transition: 0.3s ease;
+    }
+
+    table tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Worker Image */
+    table img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #43a047;
+        transition: 0.3s;
+    }
+
+    table img:hover {
+        transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 768px) {
+        table th, table td {
+            padding: 8px;
+            font-size: 12px;
+        }
+
+        table img {
+            width: 60px;
+            height: 60px;
+        }
+    }
+</style>
+
+
 <h2>Ward Workers</h2>
 
 <table border="1" width="100%">
