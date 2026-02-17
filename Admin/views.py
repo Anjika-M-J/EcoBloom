@@ -307,7 +307,7 @@ def Ward(request):
                 return render(request,"Admin/Ward.html",{'msg':"Ward already exist"})
             else:
                 tbl_ward.objects.create(ward_number=wardno)
-            return render(request,"Admin/Ward.html",{'msg':"Data inserted"})
+            return render(request,"Admin/Ward.html",{'msg':"Ward Added"})
         else:
             return render(request,"Admin/Ward.html",{'Data':admindata,'warddata':warddata})
 def delward(request,wid):
@@ -372,7 +372,7 @@ def WasteCategory(request):
                 return render(request,"Admin/WasteCategory.html",{'msg':"Waste category already exist"})
             else:
                 tbl_wastecategory.objects.create(wastecategory_name=wastecategory)
-            return render(request,"Admin/WasteCategory.html",{'msg':"Data inserted"})
+            return render(request,"Admin/WasteCategory.html",{'msg':"Waste category Added"})
         else:
             return render(request,"Admin/WasteCategory.html",{'Data':admindata,'wastecategorydata':wastecategorydata})
 def delwastecategory(request,did):
@@ -397,7 +397,7 @@ def AssignWard(request,wid):
             return render(request,"Admin/AssignWard.html",{'msg':"Ward already assigned",'wid':wid})
         else:
             tbl_assignward.objects.create(ward_id=ward,worker_id=workerdata)
-        return render(request,"Admin/AssignWard.html",{'msg':"Data inserted",'wid':wid})
+        return render(request,"Admin/AssignWard.html",{'msg':"Ward Assigned",'wid':wid})
     else:
         return render(request,"Admin/AssignWard.html",{'Data':admindata,'warddata':warddata,'assignward':assignward,'wid':wid})
 def delassignedward(request,wid,did):

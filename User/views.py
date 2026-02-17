@@ -71,7 +71,7 @@ def Complaint(request):
             title=request.POST.get("txt_title")
             content=request.POST.get("txt_content")
             tbl_complaint.objects.create(complaint_title=title,complaint_content=content,user=userdata)
-            return render(request,"User/Complaint.html",{'msg':"Data inserted"})
+            return render(request,"User/Complaint.html",{'msg':"Complaint Added"})
         else:
             return render(request,"User/Complaint.html",{'complaintdata':complaintdata})
 def delcomplaint(request,cid):
@@ -90,7 +90,7 @@ def Waste(request):
             waste=tbl_wastecategory.objects.get(id=request.POST.get("sel_wastecat"))
             wastecount=tbl_wastecategory.objects.filter(wastecategory_name=waste).count()
             tbl_waste.objects.create(waste_qty=quantity,wastecategory_id=waste,user_id=userdata)
-            return render(request,"User/Waste.html",{'msg':"Data inserted"})
+            return render(request,"User/Waste.html",{'msg':"Waste Added"})
         else:
             return render(request,"User/Waste.html",{'wastedata':wastedata,'categorydata':categorydata})
 
@@ -118,7 +118,7 @@ def Feedback(request):
             content=request.POST.get("txt_content")
             userdata=tbl_user.objects.get(id=request.session['uid'])
             tbl_feedback.objects.create(feedback_content=content,user_id=userdata)
-            return render(request,"User/Feedback.html",{'msg':"Data inserted"})
+            return render(request,"User/Feedback.html",{'msg':"Feedback Added"})
         else:
             return render(request,"User/Feedback.html",{'feedbackdata':feedbackdata})
 def delfeedback(request,did):

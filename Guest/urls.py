@@ -9,5 +9,5 @@ urlpatterns = [
     path('WorkerRegistration/',views.WorkerRegistration,name="WorkerRegistration"),
     path('delworker/<int:wid>',views.delworker,name="delworker"),
     path('editworker/<int:wid>',views.editworker,name="editworker"),
-    path('Index/',views.Index,name="Index"),
+    path('',views.Index,name="Index"),
 ]

@@ -22,7 +22,7 @@ def NewUser(request):
             return render(request,"Guest/NewUser.html",{'msg':"User Already exist"})
         else:
             tbl_user.objects.create(user_name=username,user_houseno=userhouseno,user_contactno=usercontact,user_email=useremail,user_password=userpassword,user_address=useraddress,user_photo=userphoto,ward_id=ward)  
-        return render(request,"Guest/NewUser.html",{'msg':"Data inserted"})
+        return render(request,"Guest/NewUser.html",{'msg':"Registration Successfull"})
     else:
         return render(request,"Guest/NewUser.html",{'warddata':warddata})
 
@@ -98,7 +98,7 @@ def WorkerRegistration(request):
             return render(request,"Guest/WorkerRegistration.html",{'msg':"Worker Already exist"})
         else:
             tbl_worker.objects.create(worker_name=Name,worker_email=Email,worker_contact=Contact,worker_address=Address,worker_photo=Photo,worker_proof=Proof,worker_password=Password)
-        return render(request,"Guest/WorkerRegistration.html",{'msg':"Data inserted"})
+        return render(request,"Guest/WorkerRegistration.html",{'msg':"Registration Successfull"})
     else:
         return render(request,"Guest/WorkerRegistration.html",{'workerdata':workerdata})
 def delworker(request,wid):
