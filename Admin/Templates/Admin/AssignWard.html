@@ -157,8 +157,14 @@
 
 {% if msg %}
 <script>
-    alert("{{ msg }}");
+Swal.fire({
+    title: "{{ title }}",
+    text: "{{ msg }}",
+    icon: "{{ icon }}",
+    confirmButtonColor: "{{ icon }}" === "success" ? "#2e7d32" : "#f57c00"
+}).then(() => {
     window.location = "{% url 'Admin:AssignWard' wid %}";
+});
 </script>
 {% endif %}
 

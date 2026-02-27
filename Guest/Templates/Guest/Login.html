@@ -111,8 +111,14 @@
 
 {% if msg %}
 <script>
-    alert("{{ msg }}");
+Swal.fire({
+    title: "{{ title|default:'Notification' }}",
+    text: "{{ msg }}",
+    icon: "{{ icon|default:'error' }}",
+    confirmButtonColor: "#d33"
+}).then(() => {
     window.location = "{% url 'Guest:Login' %}";
+});
 </script>
 {% endif %}
 

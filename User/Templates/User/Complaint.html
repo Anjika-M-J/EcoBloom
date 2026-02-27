@@ -217,8 +217,16 @@
 
 {% if msg %}
 <script>
-    alert("{{msg}}");
-    window.location="{% url 'User:Complaint' %}";
+Swal.fire({
+    title: 'Complaint Submitted Successfully 📩',
+    text: '{{ msg }}',
+    icon: 'success',
+    timer: 2000,
+    showConfirmButton: false,
+    background: '#f1f8e9'
+}).then(() => {
+    window.location = "{% url 'User:Complaint' %}";
+});
 </script>
 {% endif %}
 

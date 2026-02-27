@@ -158,11 +158,17 @@
         </form>
     </div>
 </div>
-{% if msg %} 
-<script> 
-alert("{{msg}}");
- window.location="{% url 'Guest:NewUser' %}"; 
- </script>
- {% endif %}
+{% if msg %}
+<script>
+Swal.fire({
+    title: "{{ title|default:'Notification' }}",
+    text: "{{ msg }}",
+    icon: "{{ icon|default:'success' }}",
+    confirmButtonColor: "#2e7d32"
+}).then(() => {
+    window.location = "{% url 'Guest:NewUser' %}";
+});
+</script>
+{% endif %}
 
 {% endblock content %}

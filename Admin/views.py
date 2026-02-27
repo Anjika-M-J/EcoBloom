@@ -304,10 +304,18 @@ def Ward(request):
             wardno=request.POST.get("txt_ward")
             wardcount=tbl_ward.objects.filter(ward_number=wardno).count()
             if wardcount>0:
-                return render(request,"Admin/Ward.html",{'msg':"Ward already exist"})
+                return render(request,"Admin/Ward.html",{'msg': "Ward already exists!",
+                    'icon': "warning",
+                    'title': "Duplicate Entry",
+                    'Data': admindata,
+                    'warddata': warddata})
             else:
                 tbl_ward.objects.create(ward_number=wardno)
-            return render(request,"Admin/Ward.html",{'msg':"Ward Added"})
+            return render(request,"Admin/Ward.html",{ 'msg': "Ward added successfully!",
+                    'icon': "success",
+                    'title': "Success",
+                    'Data': admindata,
+                    'warddata': warddata})
         else:
             return render(request,"Admin/Ward.html",{'Data':admindata,'warddata':warddata})
 def delward(request,wid):
@@ -369,10 +377,18 @@ def WasteCategory(request):
             wastecategory=request.POST.get("txt_wastecategory")
             wastecount=tbl_wastecategory.objects.filter(wastecategory_name=wastecategory).count()
             if wastecount>0:
-                return render(request,"Admin/WasteCategory.html",{'msg':"Waste category already exist"})
+                return render(request,"Admin/WasteCategory.html",{ 'msg': "Waste category already exists!",
+                'icon': "warning",
+                'title': "Duplicate Entry",
+                'Data': admindata,
+                'wastecategorydata': wastecategorydata})
             else:
                 tbl_wastecategory.objects.create(wastecategory_name=wastecategory)
-            return render(request,"Admin/WasteCategory.html",{'msg':"Waste category Added"})
+            return render(request,"Admin/WasteCategory.html",{ 'msg': "Waste category added successfully!",
+                'icon': "success",
+                'title': "Success",
+                'Data': admindata,
+                'wastecategorydata': wastecategorydata})
         else:
             return render(request,"Admin/WasteCategory.html",{'Data':admindata,'wastecategorydata':wastecategorydata})
 def delwastecategory(request,did):
@@ -394,10 +410,22 @@ def AssignWard(request,wid):
         ward=tbl_ward.objects.get(id=request.POST.get("sel_ward"))
         assignwardcount=tbl_assignward.objects.filter(ward_id=ward,worker_id=workerdata).count()
         if assignwardcount>0:
-            return render(request,"Admin/AssignWard.html",{'msg':"Ward already assigned",'wid':wid})
+            return render(request,"Admin/AssignWard.html",{'msg': "Ward already assigned!",
+                'icon': "warning",
+                'title': "Duplicate Assignment",
+                'Data': admindata,
+                'warddata': warddata,
+                'assignward': assignward,
+                'wid': wid})
         else:
             tbl_assignward.objects.create(ward_id=ward,worker_id=workerdata)
-        return render(request,"Admin/AssignWard.html",{'msg':"Ward Assigned",'wid':wid})
+        return render(request,"Admin/AssignWard.html",{'msg': "Ward assigned successfully!",
+                'icon': "success",
+                'title': "Success",
+                'Data': admindata,
+                'warddata': warddata,
+                'assignward': assignward,
+                'wid': wid})
     else:
         return render(request,"Admin/AssignWard.html",{'Data':admindata,'warddata':warddata,'assignward':assignward,'wid':wid})
 def delassignedward(request,wid,did):

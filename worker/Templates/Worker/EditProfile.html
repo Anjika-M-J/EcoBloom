@@ -171,8 +171,16 @@
 
 {% if msg %}
 <script>
-    alert("{{msg}}");
-    window.location="{% url 'worker:Profile' %}";
+document.addEventListener("DOMContentLoaded", function () {
+    Swal.fire({
+        title: "Profile Update",
+        text: "{{ msg }}",
+        icon: "success",
+        confirmButtonColor: "#2e7d32"
+    }).then(() => {
+        window.location = "{% url 'worker:Profile' %}";
+    });
+});
 </script>
 {% endif %}
 

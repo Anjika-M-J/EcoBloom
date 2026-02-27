@@ -3,6 +3,7 @@ from Admin.models import *
 from worker.models import *
 from Guest.models import *
 from User.models import *
+from django.utils.timezone import now
 # Create your views here.
 
 import requests
@@ -28,6 +29,7 @@ def WorkerHomePage(request):
     if "wid" not in request.session:
         return redirect("Guest:Login")
     else:
+        msg = request.session.pop('msg', None)
         location = get_current_location()
         print(location)
         workerdata=tbl_worker.objects.get(id=request.session['wid'])
@@ -42,9 +44,11 @@ def WorkerHomePage(request):
 
         assignwardata=tbl_assignward.objects.filter(worker_id=request.session['wid']).count()
         if assignwardata>0:
-            return render(request,"worker/WorkerHomePage.html",{'status':'1'})
+            return render(request,"worker/WorkerHomePage.html",{'status': '1',
+        'msg': msg})
         else:
-            return render(request,"worker/WorkerHomePage.html",{'Data':workerdata})
+            return render(request,"worker/WorkerHomePage.html",{'Data': workerdata,
+        'msg': msg})
 def Profile(request):
     if "wid" not in request.session:
         return redirect("Guest:Login")
@@ -95,10 +99,26 @@ def ChangePassword(request):
 def Attendence(request):
     if "wid" not in request.session:
         return redirect("Guest:Login")
+
+    workerId = tbl_worker.objects.get(id=request.session['wid'])
+    today = now().date()
+
+    # Check if already marked
+    already_marked = tbl_workerattendence.objects.filter(
+        worker_id=workerId,
+        workerattendence_datetime=today
+    ).exists()
+
+    if already_marked:
+        request.session['msg'] = "Attendance already marked today"
     else:
-        workerId=tbl_worker.objects.get(id=request.session['wid'])
-        tbl_workerattendence.objects.create(worker_id=workerId,workerattendence_status=1)
-        return render(request,"worker/WorkerHomePage.html",{'msg':' Attendence Marked'})
+        tbl_workerattendence.objects.create(
+            worker_id=workerId,
+            workerattendence_status=1
+        )
+        request.session['msg'] = "Attendance Marked Successfully"
+
+    return redirect("worker:WorkerHomePage")
 def MyAttendence(request):
     if "wid" not in request.session:
         return redirect("Guest:Login")

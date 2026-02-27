@@ -126,7 +126,7 @@
     text-decoration: underline;
 }
 </style>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div class="ward-page">
     <div class="ward-container">
 
@@ -177,8 +177,14 @@
 
 {% if msg %}
 <script>
-    alert("{{msg}}");
+Swal.fire({
+    title: "{{ title }}",
+    text: "{{ msg }}",
+    icon: "{{ icon }}",
+    confirmButtonColor: "{{ icon }}" === "success" ? "#2e7d32" : "#f57c00"
+}).then(() => {
     window.location = "{% url 'Admin:Ward' %}";
+});
 </script>
 {% endif %}
 

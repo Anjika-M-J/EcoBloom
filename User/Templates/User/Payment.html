@@ -137,8 +137,16 @@
 
 {% if msg %}
 <script>
-    alert("{{msg}}");
-    window.location="{% url 'User:Payment' %}";
+Swal.fire({
+    title: 'Payment Completed Successfully 💳',
+    text: '{{ msg }}',
+    icon: 'success',
+    timer: 2000,
+    showConfirmButton: false,
+    backdrop: true
+}).then(() => {
+    window.location = "{% url 'User:Payment' %}";
+});
 </script>
 {% endif %}
 

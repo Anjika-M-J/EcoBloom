@@ -158,8 +158,14 @@
 
 {% if msg %}
 <script>
-    alert("{{msg}}");
+Swal.fire({
+    title: "{{ title|default:'Notification' }}",
+    text: "{{ msg }}",
+    icon: "{{ icon|default:'success' }}",
+    confirmButtonColor: "#2e7d32"
+}).then(() => {
     window.location = "{% url 'Admin:WasteCategory' %}";
+});
 </script>
 {% endif %}
 

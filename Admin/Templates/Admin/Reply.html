@@ -107,8 +107,15 @@
 
 {% if msg %}
 <script>
-    alert("{{msg}}");
-    window.location="{% url 'Admin:ViewComplaint' %}";
+Swal.fire({
+    title: 'Reply Sent Successfully ✅',
+    text: '{{ msg }}',
+    icon: 'success',
+    timer: 2000,
+    showConfirmButton: false
+}).then(() => {
+    window.location = "{% url 'Admin:ViewComplaint' %}";
+});
 </script>
 {% endif %}
 

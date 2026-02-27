@@ -19,10 +19,16 @@ def NewUser(request):
         ward=tbl_ward.objects.get(id=request.POST.get("sel_ward"))  
         newusercount=tbl_user.objects.filter(user_houseno=userhouseno).count()
         if newusercount>0:
-            return render(request,"Guest/NewUser.html",{'msg':"User Already exist"})
+            return render(request,"Guest/NewUser.html",{'msg': "User already exists with this house number!",
+                'icon': "warning",
+                'title': "Duplicate Entry",
+                'warddata': warddata})
         else:
             tbl_user.objects.create(user_name=username,user_houseno=userhouseno,user_contactno=usercontact,user_email=useremail,user_password=userpassword,user_address=useraddress,user_photo=userphoto,ward_id=ward)  
-        return render(request,"Guest/NewUser.html",{'msg':"Registration Successfull"})
+        return render(request,"Guest/NewUser.html",{'msg': "Registration successful!",
+            'icon': "success",
+            'title': "Success",
+            'warddata': warddata})
     else:
         return render(request,"Guest/NewUser.html",{'warddata':warddata})
 
@@ -56,11 +62,17 @@ def Login(request):
                 request.session['wid']=workerdata.id
                 return redirect("worker:WorkerHomePage")
             elif workerdata.worker_status==2:
-                return render(request,"Guest/Login.html",{'msg':"Rejected"})
+                return render(request,"Guest/Login.html",{ 'msg': "Your account has been rejected.",
+                    'icon': "error",
+                    'title': "Access Denied"})
             else:
-                return render(request,"Guest/Login.html",{'msg':"Pending"})
+                return render(request,"Guest/Login.html",{ 'msg': "Your account is pending approval.",
+                    'icon': "info",
+                    'title': "Pending Approval"})
         else:
-            return render(request,"Guest/Login.html",{'msg':"Invalid Login"})
+            return render(request,"Guest/Login.html",{'msg': "Invalid email or password!",
+                'icon': "error",
+                'title': "Login Failed"})
     else:
         return render(request,"Guest/Login.html")
 
@@ -95,10 +107,16 @@ def WorkerRegistration(request):
         Password=request.POST.get("txt_password")
         workercount=tbl_worker.objects.filter(worker_email=Email).count()
         if workercount>0:
-            return render(request,"Guest/WorkerRegistration.html",{'msg':"Worker Already exist"})
+            return render(request,"Guest/WorkerRegistration.html",{'msg': "Worker already exists!",
+                'icon': "warning",
+                'title': "Duplicate Registration",
+                'workerdata': workerdata})
         else:
             tbl_worker.objects.create(worker_name=Name,worker_email=Email,worker_contact=Contact,worker_address=Address,worker_photo=Photo,worker_proof=Proof,worker_password=Password)
-        return render(request,"Guest/WorkerRegistration.html",{'msg':"Registration Successfull"})
+        return render(request,"Guest/WorkerRegistration.html",{'msg': "Registration successful!",
+                'icon': "success",
+                'title': "Success",
+                'workerdata': workerdata})
     else:
         return render(request,"Guest/WorkerRegistration.html",{'workerdata':workerdata})
 def delworker(request,wid):
