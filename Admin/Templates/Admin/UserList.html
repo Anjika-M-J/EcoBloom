@@ -73,6 +73,7 @@
 .accept-btn {
     background: #2ecc71;
     color: white;
+    margin-right: 8px;   /* space between buttons */
 }
 
 .accept-btn:hover {
@@ -118,7 +119,7 @@
             <td>House No</td>
             <td>Ward</td>
             <td>Photo</td>
-            <td colspan="2">Action</td>
+            <td>Action</td>
         </tr>
 
         {% for i in userdata %}
@@ -133,17 +134,15 @@
             <td><img src="{{i.user_photo.url}}" width="80px"></td>
 
             <td>
-                {% if i.user_status == 0 %}
-                <a class="accept-btn" href="{% url 'Admin:acceptuser' i.id %}">Accept</a>
-            </td>
-            <td>
-                <a class="reject-btn" href="{% url 'Admin:rejectuser' i.id %}">Reject</a>
-                {% elif i.user_status == 1 %}
-                <span class="status-verified">Verified</span>
-                {% elif i.user_status == 2 %}
-                <span class="status-rejected">Rejected</span>
-                {% endif %}
-            </td>
+    {% if i.user_status == 0 %}
+        <a class="accept-btn" href="{% url 'Admin:acceptuser' i.id %}">Accept</a>
+        <a class="reject-btn" href="{% url 'Admin:rejectuser' i.id %}">Reject</a>
+    {% elif i.user_status == 1 %}
+        <span class="status-verified">Accepted</span>
+    {% elif i.user_status == 2 %}
+        <span class="status-rejected">Rejected</span>
+    {% endif %}
+</td>
         </tr>
         {% endfor %}
     </table>
@@ -175,7 +174,7 @@
             <td>{{i.user_houseno}}</td>
             <td>{{i.ward_id.ward_number}}</td>
             <td><img src="{{i.user_photo.url}}" width="80px"></td>
-            <td><span class="status-verified">Verified</span></td>
+            <td><span class="status-verified">Accepted</span></td>
         </tr>
         {% endfor %}
     </table>
