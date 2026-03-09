@@ -1,0 +1,150 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+
+<style>
+.page-title{
+text-align:center;
+font-size:28px;
+font-weight:600;
+margin:30px 0;
+color:#2c3e50;
+}
+
+.card-box{
+width:70%;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.btn-submit{
+width:100%;
+padding:12px;
+background:#27ae60;
+border:none;
+color:white;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+}
+
+table{
+width:70%;
+margin:40px auto;
+border-collapse:collapse;
+background:white;
+}
+
+table th{
+background:#27ae60;
+color:white;
+padding:10px;
+}
+
+table td{
+padding:10px;
+text-align:center;
+border-bottom:1px solid #eee;
+}
+
+.chart-container{
+width:70%;
+margin:30px auto;
+background:white;
+padding:20px;
+border-radius:12px;
+}
+</style>
+
+<div class="page-title">
+Payment Collection Report
+</div>
+
+<div class="card-box">
+<form method="post">
+{% csrf_token %}
+
+<label>From Date</label>
+<input type="date" name="from_date" required>
+
+<br><br>
+
+<label>To Date</label>
+<input type="date" name="to_date" required>
+
+<br><br>
+
+<button type="submit" class="btn-submit">
+Generate Report
+</button>
+
+</form>
+</div>
+
+{% if payment_report %}
+
+<table>
+<tr>
+<th>Date</th>
+<th>Total Payment (₹)</th>
+</tr>
+
+{% for i in payment_report %}
+<tr>
+<td>{{ i.payment_date }}</td>
+<td>{{ i.total_amount }}</td>
+</tr>
+{% empty %}
+<tr>
+<td colspan="2">No data available</td>
+</tr>
+{% endfor %}
+</table>
+
+<div class="chart-container">
+<canvas id="paymentChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const paymentLabels = [
+{% for i in payment_report %}
+"{{ i.payment_date }}"{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+
+const paymentData = [
+{% for i in payment_report %}
+{{ i.total_amount }}{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+
+new Chart(document.getElementById('paymentChart'), {
+type: 'bar',
+data: {
+labels: paymentLabels,
+datasets: [{
+label: 'Daily Payment Collection (₹)',
+data: paymentData,
+backgroundColor: '#27ae60'
+}]
+},
+options: {
+responsive: true,
+scales: {
+y: {
+beginAtZero: true
+}
+}
+}
+});
+
+</script>
+
+{% endif %}
+
+{% endblock %}

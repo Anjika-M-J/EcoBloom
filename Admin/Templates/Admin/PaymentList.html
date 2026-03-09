@@ -1,0 +1,41 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Payment Details</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Sl.No</th>
+                <th>User Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for p in payments %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{p.user_id.user_name}}</td>
+                <td>₹{{p.payment_amount}}</td>
+                <td>{{p.payment_date}}</td>
+
+                <td>
+                    {% if p.payment_status == 1 %}
+                        <span style="color:green;">Paid</span>
+                    {% else %}
+                        <span style="color:red;">Not Paid</span>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

@@ -48,6 +48,7 @@ urlpatterns = [
     path('ViewFeedback/',views.ViewFeedback,name="ViewFeedback"),
     path('WardWiseReport/', views.WardWiseReport, name='WardWiseReport'),
     path('CategoryWiseReport/', views.CategoryWiseReport, name='CategoryWiseReport'),
-
+    path('paymentlist/', views.AdminPaymentList, name='AdminPaymentList'),
+    path('PaymentReport/', views.PaymentReport, name='PaymentReport'),
     path('Logout/',views.Logout,name="Logout")
 ]

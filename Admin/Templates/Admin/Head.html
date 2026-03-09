@@ -39,109 +39,145 @@
   </li>
 
   <!-- DASHBOARD -->
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'Admin:HomePage' %}">
-      <i class="mdi mdi-home menu-icon"></i>
-      <span class="menu-title">Dashboard</span>
-    </a>
-  </li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'Admin:HomePage' %}">
+    <i class="mdi mdi-view-dashboard menu-icon"></i>
+    <span class="menu-title">Dashboard</span>
+  </a>
+</li>
 
-  <!-- MANAGEMENT -->
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="collapse" href="#management" aria-expanded="false" aria-controls="management">
-      <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-      <span class="menu-title">Management</span>
-      <i class="menu-arrow"></i>
-    </a>
-    <div class="collapse" id="management">
-      <ul class="nav flex-column sub-menu">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'Admin:Ward' %}">Ward</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'Admin:WasteCategory' %}">Waste Category</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'Admin:UserList' %}">Users</a>
-        </li>
-      </ul>
-    </div>
-  </li>
 
-  <!-- WORKERS -->
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'Admin:ViewWorker' %}">
-      <i class="mdi mdi-account-group menu-icon"></i>
-      <span class="menu-title">Workers</span>
-    </a>
-  </li>
+<!-- MASTER DATA -->
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#masterdata">
+    <i class="mdi mdi-database menu-icon"></i>
+    <span class="menu-title">Master Data</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="masterdata">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Admin:Ward' %}">Ward Management</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Admin:WasteCategory' %}">
+          Waste Categories
+        </a>
+      </li>
+    </ul>
+  </div>
+</li>
 
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'Admin:WorkerVerification' %}">
-      <i class="mdi mdi-account-check menu-icon"></i>
-      <span class="menu-title">Worker Verification</span>
-    </a>
-  </li>
 
-  <!-- USER INTERACTION -->
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'Admin:ViewComplaint' %}">
-      <i class="mdi mdi-alert-circle-outline menu-icon"></i>
-      <span class="menu-title">Complaints</span>
-    </a>
-  </li>
+<!-- USER MANAGEMENT -->
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#users">
+    <i class="mdi mdi-account-multiple menu-icon"></i>
+    <span class="menu-title">User Management</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="users">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Admin:UserList' %}">Registered Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Admin:ViewWorker' %}">Workers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Admin:WorkerVerification' %}">
+          Worker Verification
+        </a>
+      </li>
+    </ul>
+  </div>
+</li>
 
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'Admin:ViewFeedback' %}">
-      <i class="mdi mdi-message-text-outline menu-icon"></i>
-      <span class="menu-title">Feedback</span>
-    </a>
-  </li>
 
-  <!-- REPORTS -->
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="reports">
-      <i class="mdi mdi-chart-bar menu-icon"></i>
-      <span class="menu-title">Reports</span>
-      <i class="menu-arrow"></i>
-    </a>
-    <div class="collapse" id="reports">
-      <ul class="nav flex-column sub-menu">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'Admin:CategoryWiseReport' %}">
-            Category-wise Report
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'Admin:WardWiseReport' %}">
-            Ward-wise Report
-          </a>
-        </li>
-      </ul>
-    </div>
-  </li>
+<!-- PAYMENT MANAGEMENT -->
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'Admin:AdminPaymentList' %}">
+    <i class="mdi mdi-cash-multiple menu-icon"></i>
+    <span class="menu-title">Payments</span>
+  </a>
+</li>
 
-  <!-- SYSTEM -->
-  <li class="nav-item sidebar-actions">
-    <div class="nav-link">
-      <div class="mt-4">
-        <div class="border-none">
-          <a class="nav-link" href="#">Notification</a>
-        </div>
-        <ul class="mt-4 pl-0">
-          <li class="nav-item">
-            <a class="nav-link text-danger" href="{% url 'Admin:Logout' %}">
-              Logout
-            </a>
-          </li>
-        </ul>
+
+<!-- USER COMMUNICATION -->
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#communication">
+    <i class="mdi mdi-message-processing menu-icon"></i>
+    <span class="menu-title">User Interaction</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="communication">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Admin:ViewComplaint' %}">
+          Complaints
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Admin:ViewFeedback' %}">
+          Feedback
+        </a>
+      </li>
+    </ul>
+  </div>
+</li>
+
+
+<!-- REPORTS -->
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#reports">
+    <i class="mdi mdi-chart-bar menu-icon"></i>
+    <span class="menu-title">Reports</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="reports">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Admin:WardWiseReport' %}">
+          Ward Waste Report
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Admin:CategoryWiseReport' %}">
+          Category Waste Report
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Admin:PaymentReport' %}">
+          Payment Report
+        </a>
+      </li>
+    </ul>
+  </div>
+</li>
+
+
+<!-- SYSTEM -->
+<li class="nav-item sidebar-actions">
+  <div class="nav-link">
+    <div class="mt-4">
+
+      <div class="border-none">
+        <a class="nav-link" href="#">
+          <i class="mdi mdi-bell-outline"></i> Notifications
+        </a>
       </div>
+
+      <ul class="mt-4 pl-0">
+        <li class="nav-item">
+          <a class="nav-link text-danger" href="{% url 'Admin:Logout' %}">
+            <i class="mdi mdi-logout"></i> Logout
+          </a>
+        </li>
+      </ul>
+
     </div>
-  </li>
-
-</ul>
-
-      </nav>
+  </div>
+</li></ul></nav>
       <div class="container-fluid page-body-wrapper">
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close mdi mdi-close"></i>

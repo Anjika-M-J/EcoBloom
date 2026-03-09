@@ -453,16 +453,15 @@ def WardWiseReport(request):
                 user_id__ward_id_id=ward_id,
                 waste_date__range=[from_date, to_date]
             ).values(
-                'user_id__ward_id__ward_number'
+                'waste_date'
             ).annotate(
                 total_qty=Sum('waste_qty')
-            )
+            ).order_by('waste_date')
 
     return render(request, "Admin/wardwisereport.html", {
         "ward_report": ward_report,
         "wards": wards
     })
-
 def CategoryWiseReport(request):
     categories = tbl_wastecategory.objects.all()
     category_report = None
@@ -472,18 +471,44 @@ def CategoryWiseReport(request):
         from_date = request.POST.get("from_date")
         to_date = request.POST.get("to_date")
 
-        category_report = tbl_waste.objects.filter(
-            wastecategory_id=category_id,
-            waste_date__range=[from_date, to_date]
-        ).values(
-            'wastecategory_id__wastecategory_name'
-        ).annotate(
-            total_qty=Sum('waste_qty')
-        )
+        if category_id and from_date and to_date:
+            category_report = tbl_waste.objects.filter(
+                wastecategory_id=category_id,
+                waste_date__range=[from_date, to_date]
+            ).values(
+                'waste_date'
+            ).annotate(
+                total_qty=Sum('waste_qty')
+            ).order_by('waste_date')
 
     return render(request, "Admin/CategoryWiseReport.html", {
         "categories": categories,
         "category_report": category_report
+    })
+
+def AdminPaymentList(request):
+    payments = tbl_payment.objects.all()
+    return render(request, "Admin/PaymentList.html", {"payments": payments})
+
+def PaymentReport(request):
+
+    payment_report = None
+
+    if request.method == "POST":
+        from_date = request.POST.get("from_date")
+        to_date = request.POST.get("to_date")
+
+        payment_report = tbl_payment.objects.filter(
+            payment_date__range=[from_date, to_date],
+            payment_status=1
+        ).values(
+            'user_id__ward_id__ward_number'
+        ).annotate(
+            total_amount=Sum('payment_amount')
+        )
+
+    return render(request,"Admin/PaymentReport.html",{
+        "payment_report":payment_report
     })
 
 def Logout(request):

@@ -143,21 +143,21 @@
 {% if category_report %}
 
 <table>
-    <tr>
-        <th>Waste Category</th>
-        <th>Total Waste Collected (kg)</th>
-    </tr>
+<tr>
+    <th>Date</th>
+    <th>Total Waste Collected (kg)</th>
+</tr>
 
-    {% for i in category_report %}
-    <tr>
-        <td>{{ i.wastecategory_id__wastecategory_name }}</td>
-        <td>{{ i.total_qty }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="2">No data available</td>
-    </tr>
-    {% endfor %}
+{% for i in category_report %}
+<tr>
+    <td>{{ i.waste_date }}</td>
+    <td>{{ i.total_qty }}</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="2">No data available</td>
+</tr>
+{% endfor %}
 </table>
 
 <div class="chart-container">
@@ -167,37 +167,49 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    const categoryLabels = [
-        {% for i in category_report %}
-            "{{ i.wastecategory_id__wastecategory_name }}"{% if not forloop.last %},{% endif %}
-        {% endfor %}
-    ];
 
-    const categoryData = [
-        {% for i in category_report %}
-            {{ i.total_qty }}{% if not forloop.last %},{% endif %}
-        {% endfor %}
-    ];
+const categoryLabels = [
+{% for i in category_report %}
+"{{ i.waste_date }}"{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
 
-    new Chart(document.getElementById('categoryChart'), {
-        type: 'bar',
-        data: {
-            labels: categoryLabels,
-            datasets: [{
-                label: 'Waste Collected (kg)',
-                data: categoryData,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
+const categoryData = [
+{% for i in category_report %}
+{{ i.total_qty }}{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+
+new Chart(document.getElementById('categoryChart'), {
+    type: 'bar',
+    data: {
+        labels: categoryLabels,
+        datasets: [{
+            label: 'Daily Waste Collected (kg)',
+            data: categoryData,
+            backgroundColor: '#8e44ad'
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Waste (kg)'
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Date'
                 }
             }
         }
-    });
+    }
+});
+
 </script>
 
 {% endif %}
