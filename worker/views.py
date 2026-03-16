@@ -4,6 +4,7 @@ from worker.models import *
 from Guest.models import *
 from User.models import *
 from django.utils.timezone import now
+from django.http import JsonResponse
 # Create your views here.
 
 import requests
@@ -22,6 +23,7 @@ def get_current_location():
         "country": data.get("country"),
         "ip": data.get("ip")
     }
+
 
 
 
@@ -49,6 +51,8 @@ def WorkerHomePage(request):
         else:
             return render(request,"worker/WorkerHomePage.html",{'Data': workerdata,
         'msg': msg})
+
+
 def Profile(request):
     if "wid" not in request.session:
         return redirect("Guest:Login")
@@ -184,6 +188,22 @@ def WorkerMyAttendance(request):
         "total_present": total_present,
         "total_absent": total_absent
     })
+
+def update_worker_location(request):
+
+    if "wid" in request.session:
+
+        lat = request.GET.get("lat")
+        lng = request.GET.get("lng")
+
+        worker = tbl_worker.objects.get(id=request.session["wid"])
+
+        worker.worker_latitude = lat
+        worker.worker_longitude = lng
+
+        worker.save()
+
+    return JsonResponse({"status":"ok"})
         
 def Logout(request):
     del request.session['wid']

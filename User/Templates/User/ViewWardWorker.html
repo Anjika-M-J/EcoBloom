@@ -107,8 +107,7 @@
 </table>
 
 <br>
-<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
-<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
 
 <!-- Map -->
 <div id="map" style="height: 400px; width: 100%;"></div>
@@ -131,6 +130,9 @@
 
 
 <!-- Worker Data -->
+
+
+
 <script>
     const workers = [
         {% for i in data %}
@@ -192,8 +194,6 @@
         map.setView([10.8505, 76.2711], 7);
     }
 </script>
-
-
 
 
 {% endblock content %}

@@ -567,6 +567,31 @@
 </body>
 
 </html>
+<script>
+
+function sendLocation(){
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(function(position){
+
+let lat = position.coords.latitude;
+let lng = position.coords.longitude;
+
+fetch("/Worker/update_worker_location/?lat="+lat+"&lng="+lng);
+
+});
+
+}
+
+}
+
+// update every 5 seconds
+setInterval(sendLocation,5000);
+
+sendLocation();
+
+</script>
 
 
 

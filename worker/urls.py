@@ -13,7 +13,7 @@ urlpatterns = [
     path('Collect/<int:cid>',views.Collect,name="Collect"),
     path('ViewCollectionHistory/',views.ViewCollectionHistory,name="ViewCollectionHistory"),
     path('WorkerMyAttendance/', views.WorkerMyAttendance, name="WorkerMyAttendance"),
-
+    path('update_worker_location/',views.update_worker_location,name="update_worker_location"),
     path('Logout/',views.Logout,name="Logout")
 ]
     

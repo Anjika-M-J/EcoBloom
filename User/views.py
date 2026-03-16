@@ -4,6 +4,7 @@ from worker.models import *
 from Guest.models import *
 from User.models import *
 from django.db.models import Sum
+
 # Create your views here.
 def Profile(request):
     if "uid" not in request.session:
@@ -104,6 +105,7 @@ def viewwardworker(request):
     )
     # print(workers)
     return render(request,'User/ViewWardWorker.html',{'data':workers})
+
 
 def delwaste(request,did):
     tbl_waste.objects.get(id=did).delete()
