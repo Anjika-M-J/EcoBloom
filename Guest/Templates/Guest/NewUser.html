@@ -93,7 +93,10 @@
         <div class="form-row">
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="txt_name" class="form-control" required>
+                <input type="text" name="txt_name" 
+                title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" 
+                pattern="^[A-Z]+[a-zA-Z ]*$"
+                class="form-control" required>
             </div>
 
             <div class="form-group">
@@ -105,7 +108,10 @@
         <div class="form-row">
             <div class="form-group">
                 <label>Contact</label>
-                <input type="number" name="txt_con" class="form-control" required>
+                <input type="text" name="txt_con" 
+                pattern="[7-9]{1}[0-9]{9}" 
+                title="Phone number with 7-9 and remaing 9 digit with 0-9" minlength="10" maxlength="10"
+                class="form-control" required>
             </div>
 
             <div class="form-group">
@@ -117,7 +123,11 @@
         <div class="form-row">
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="txt_pass" class="form-control" required>
+                <input type="password" name="txt_pass" 
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
+                required name="txt_pass"
+                class="form-control" required>
             </div>
 
             <div class="form-group">

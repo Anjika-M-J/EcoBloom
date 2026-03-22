@@ -578,7 +578,7 @@ navigator.geolocation.getCurrentPosition(function(position){
 let lat = position.coords.latitude;
 let lng = position.coords.longitude;
 
-fetch("/Worker/update_worker_location/?lat="+lat+"&lng="+lng);
+fetch("/worker/update_worker_location/?lat="+lat+"&lng="+lng);
 
 });
 

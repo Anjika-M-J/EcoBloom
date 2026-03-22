@@ -139,8 +139,7 @@
         {
             name: "{{ i.worker_name }}",
             lat: {{ i.worker_latitude|default:"null" }},
-            lng: {{ i.worker_longitude|default:"null" }},
-            city: "{{ i.worker_curr_city }}"
+            lng: {{ i.worker_longitude|default:"null" }}
         }{% if not forloop.last %},{% endif %}
         {% endfor %}
     ];

@@ -191,8 +191,6 @@ def WorkerMyAttendance(request):
 
 def update_worker_location(request):
 
-    if "wid" in request.session:
-
         lat = request.GET.get("lat")
         lng = request.GET.get("lng")
 
@@ -202,8 +200,7 @@ def update_worker_location(request):
         worker.worker_longitude = lng
 
         worker.save()
-
-    return JsonResponse({"status":"ok"})
+        return JsonResponse({"status":"ok"})
         
 def Logout(request):
     del request.session['wid']
