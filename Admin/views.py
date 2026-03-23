@@ -489,7 +489,6 @@ def CategoryWiseReport(request):
 def AdminPaymentList(request):
     payments = tbl_payment.objects.all()
     return render(request, "Admin/PaymentList.html", {"payments": payments})
-
 def PaymentReport(request):
 
     payment_report = None
@@ -501,14 +500,12 @@ def PaymentReport(request):
         payment_report = tbl_payment.objects.filter(
             payment_date__range=[from_date, to_date],
             payment_status=1
-        ).values(
-            'user_id__ward_id__ward_number'
-        ).annotate(
+        ).values('payment_date').annotate(
             total_amount=Sum('payment_amount')
-        )
+        ).order_by('payment_date')
 
-    return render(request,"Admin/PaymentReport.html",{
-        "payment_report":payment_report
+    return render(request, "Admin/PaymentReport.html", {
+        "payment_report": payment_report
     })
 
 def Logout(request):

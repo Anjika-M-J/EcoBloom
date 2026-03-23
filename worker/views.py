@@ -46,7 +46,7 @@ def WorkerHomePage(request):
 
         assignwardata=tbl_assignward.objects.filter(worker_id=request.session['wid']).count()
         if assignwardata>0:
-            return render(request,"worker/WorkerHomePage.html",{'status': '1',
+            return render(request,"worker/WorkerHomePage.html",{'status': '1','Data': workerdata,
         'msg': msg})
         else:
             return render(request,"worker/WorkerHomePage.html",{'Data': workerdata,
